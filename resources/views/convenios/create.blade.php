@@ -3,7 +3,7 @@
 @section('content')
     <h1>Registrar Convenios de Colaboración</h1>
 
-    <form method="POST" action="{{ url('convenio') }}">
+    <form method="POST" enctype="multipart/form-data" action="{{ url('convenio') }}">
         {{ csrf_field() }}
         * campos obligatorios.
         <br>

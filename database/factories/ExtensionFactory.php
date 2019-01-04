@@ -12,6 +12,5 @@ $factory->define(App\extension::class, function (Faker $faker) {
         'tipo_convenio' => $faker->name,
         'organizador' => $faker->name,
         'evidencia' => $faker->name,
-        'foto' => $faker->name,
     ];
 });

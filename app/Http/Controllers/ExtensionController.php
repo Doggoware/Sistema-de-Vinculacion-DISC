@@ -23,6 +23,7 @@ class ExtensionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         return view('extension.create');
@@ -45,7 +46,6 @@ class ExtensionController extends Controller
             'organizador' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
             'tipo_convenio' => '',
             'evidencia' => 'required',
-            'fotos' => '',
         ], [
             'titulo.required' => 'El campo título de actividad es obligatorio',
             'nombre.required' => 'El campo nombre del expositor es obligatorio',
@@ -56,16 +56,28 @@ class ExtensionController extends Controller
             'evidencia.required' => 'Debe subir evidencia de la actividad'
         ]);
 
-        extension::create([
+        $photos = $request->file('evidencia');
+        $paths  = [];
+
+        foreach ($photos as $photo) {
+            $ext = $photo->getClientOriginalExtension();
+            $filename  = 'profile-photo-' . time() . '.' . $ext;
+            $paths[]   = $photo->storeAs('photos', $filename);
+
+        }
+
+        $ext = extension::create([
             'titulo' => $extension['titulo'],
             'nombre' => $extension['nombre'],
             'fecha' => $extension['fecha'],
             'lugar' => $extension['lugar'],
             'cantidad' => $extension['cantidad'],
             'organizador' => $extension['organizador'],
-            'evidencia' => $extension['evidencia'],
-            'fotos' => $extension['fotos']
+            'tipo_convenio' => $extension['tipo_convenio'],
+
         ]);
+
+        $ext -> save();
         return redirect()->route('extension.index');
     }
 
