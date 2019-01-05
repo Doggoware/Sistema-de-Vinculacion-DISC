@@ -24,7 +24,6 @@ class CreateExtensionsTable extends Migration
             $table->string('organizador');
             $table->string('tipo_convenio')->nullable();
             $table->string('evidencia');
-            $table->string('fotos')->nullable();
         });
     }
 
