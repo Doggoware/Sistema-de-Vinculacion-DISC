@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::resource('', 'HomeController');
 Route::resource('registro', 'RegistroController');
 Route::resource('convenio', 'ConvenioController');
 Route::resource('extension', 'ExtensionController');

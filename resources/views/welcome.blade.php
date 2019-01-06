@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Sistema de Vinculacion</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -45,17 +45,19 @@
             }
 
             .title {
+                color: #303F9F;
                 font-size: 84px;
             }
 
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
-                font-size: 13px;
+                font-size: 18px;
                 font-weight: 600;
                 letter-spacing: .1rem;
-                text-decoration: none;
+                text-decoration: underline;
                 text-transform: uppercase;
+
             }
 
             .m-b-md {
@@ -81,16 +83,16 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Sistema de Vinculación DISC
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="http://192.168.10.10/convenio/">Administrar Convenios</a><br/><br/>
+                    <a href="http://192.168.10.10/extencion/">Administrar Actividades de Extención</a><br/><br/>
+                    <a href="http://192.168.10.10/aprendizaje">Administrar Actividades de A+S</a><br/><br/>
+                    <a href="http://192.168.10.10/">Administrar Actividades de titulación</a><br/><br/>
+                    <a href="http://192.168.10.10/">Registrar Titulados</a><br/><br/>
+                    <a href="http://192.168.10.10/">Actualizar Valores de Indicadores</a><br/><br/>
                 </div>
             </div>
         </div>
