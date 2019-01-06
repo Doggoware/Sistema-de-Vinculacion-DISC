@@ -14,7 +14,8 @@ class TituladosController extends Controller
      */
     public function index()
     {
-        //
+        $titulados = Titulados::all();
+        return view('titulados.index',compact(titulados));
     }
 
     /**
@@ -24,7 +25,7 @@ class TituladosController extends Controller
      */
     public function create()
     {
-        //
+        return view('titulados.create');
     }
 
     /**
@@ -35,7 +36,33 @@ class TituladosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $titulados = request()->validate([
+            'nombre_titulado' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
+            'rut_titulado' => 'required',
+            'telefono_titulado' =>'integer|digits:4|min:0',
+            'correo_titulado',
+            'empresa_trabaja',
+            'año_titulacion'=>'required|integer|digits:4|min:0',
+            'carrera'=>'required',
+        ],[
+            'nombre_titulado.required'=>'El campo nombre es obligatorio',
+            'rut_titulado.required' => 'El campo RUT es obligatorio',
+            'año_titulacion.required'=>'El campo año de titulacion es obligatorio',
+            'carrera.required'=>'El campo carrera es obligatorio',
+        ]);
+
+        $titus = Titulados::create([
+            'nombre_titulado' => $titulados['nombre_titulado'],
+            'rut_titulado' => $titulados['rut_titulado'],
+            'telefono_titulado' => $titulados['telefono_titulado'],
+            'correo_titulado' =>$titulados['correo_titulado'],
+            'empresa_trabaja'=>$titulados['empresa_trabaja'],
+            'año_titulacion' => $titulados['año_titulacion'],
+            'carrera' => $titulados['carrera'],
+        ]);
+
+        $titus->save();
+        return redirect()->route('titulados.index');
     }
 
     /**
