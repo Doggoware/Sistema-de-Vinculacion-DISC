@@ -1,10 +1,5 @@
 @extends('layouts.master')
 
 @section('content')
-    <h1>Bienvenido</h1>
-    lñafkgasdklf<br>
-    asdkfjasdf<br>
-    asdfkasjdfasd<br>
-    klajsdlasdf<br>
-    asdf--asdfasd<br>-
+    <h1 class="page-header">Bienvenido</h1>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\extension;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ExtensionController extends Controller
 {
@@ -38,40 +39,45 @@ class ExtensionController extends Controller
     {
         $extension =  request()->validate([
             'titulo' => 'required',
-            'nombre' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
+            'nombre' => ['required','regex:/^[A-Za-z]+([\ A-Za-z]+)*/'],
             'lugar' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
             'fecha' => 'required|before:today',
             'cantidad' => 'required|integer|min:0',
-            'organizador' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
+            'organizador' => ['required','regex:/^[A-Za-z]+([\ A-Za-z]+)*/'],
             'tipo_convenio' => '',
             'evidencia' => 'required',
         ], [
             'titulo.required' => 'El campo título de actividad es obligatorio',
             'nombre.required' => 'El campo nombre del expositor es obligatorio',
+            'nombre.regex' => 'El nombre solo puede contener letras, es un nombre',
             'lugar.required' => 'El campo lugar es obligatorio',
             'fecha.required' => 'El campo fecha es obligatorio',
+            'fecha.before' => 'La fecha tiene que ser antes del día de hoy',
             'cantidad.required' => 'El campo cantidad de estudiantes es obligatario',
+            'cantidad.integer' => 'La cantidad de asistentes tiene que ser un número entero positivo',
+            'cantidad.min' => 'La cantidad de asiste tiene que ser un número entero positivo',
             'organizador.required' => 'El campo organizador es obligatorio',
+            'organizador.regex' => 'El nombre solo puede contener letras, es un nombre',
             'evidencia.required' => 'Debe subir evidencia de la actividad'
         ]);
-
-        $photos = $request->file('evidencia');
-        $paths  = [];
-        foreach ($photos as $photo) {
-            $ext = $photo->getClientOriginalExtension();
-            $filename  = 'profile-photo-' . time() . '.' . $ext;
-            $paths[]   = $photo->storeAs('photos', $filename);
+        $paths = [];
+        foreach ($request->file('evidencia') as $photos) {
+            $ext = $photos->getClientOriginalExtension();
+            $filename  = 'evidencia-foto-' . time() . '.' . $ext;
+            DB::table('extensions')->insert(
+                [
+                    'titulo' => $request->input('titulo'),
+                    'nombre' => $request->input('nombre'),
+                    'fecha' => $request->input('fecha'),
+                    'lugar' => $request->input('lugar'),
+                    'cantidad' => $request->input('cantidad'),
+                    'organizador' => $request->input('organizador'),
+                    'tipo_convenio' => $request->input('tipo_convenio'),
+                    'evidencia' => $filename,
+                ]);
+            $paths[]   = $photos->storeAs('photos', $filename);
         }
-        $ext = extension::create([
-            'titulo' => $extension['titulo'],
-            'nombre' => $extension['nombre'],
-            'fecha' => $extension['fecha'],
-            'lugar' => $extension['lugar'],
-            'cantidad' => $extension['cantidad'],
-            'organizador' => $extension['organizador'],
-            'tipo_convenio' => $extension['tipo_convenio'],
-            'evidencia' => $extension['evidencia']
-        ]);
+
         return redirect()->route('extension.index');
     }
 
