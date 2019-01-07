@@ -14,8 +14,8 @@ class TituladosController extends Controller
      */
     public function index()
     {
-        $titulados = Titulados::all();
-        return view('titulados.index',compact(titulados));
+        $titulados = titulados::all();
+        return view('titulados.index',compact('titulados'));
     }
 
     /**
@@ -39,9 +39,9 @@ class TituladosController extends Controller
         $titulados = request()->validate([
             'nombre_titulado' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
             'rut_titulado' => 'required',
-            'telefono_titulado' =>'integer|digits:4|min:0',
-            'correo_titulado',
-            'empresa_trabaja',
+            'telefono_titulado' =>'nullable|integer|digits:4|min:0',
+            'correo_titulado'=>'sometimes',
+            'empresa_trabaja'=>'sometimes',
             'año_titulacion'=>'required|integer|digits:4|min:0',
             'carrera'=>'required',
         ],[
