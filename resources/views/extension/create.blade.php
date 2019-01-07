@@ -3,7 +3,7 @@
 @section('content')
     <h1>Registrar Actividad de Extensión</h1>
 
-    <form method="POST" action="{{ url('extension') }}">
+    <form method="POST" enctype="multipart/form-data" action="{{ url('extension') }}">
         {{ csrf_field() }}
         * Campos obligatorios
         <br>
@@ -42,11 +42,8 @@
         <br>
         <input type="radio" name="tipo_convenio" value=""> Ninguno
         <br>
-        <label for="evidencia">Listado de participantes:*</label>
-        <input type="file" name="evidencia" accept=".pdf, .png, .jpg, .jpeg">
-        <br>
-        <label for="fotos">Fotos de la actividad:</label>
-        <input type="file" name="fotos" accept=".png, .jpg, .jpeg">
+        <label for="evidencia">Evidencia de la participacion:*</label>
+        <input type="file" name="evidencia[]" accept=".pdf, .png, .jpg, .jpeg" multiple>
         <br>
         <button type="submit">Registrar Actividad</button>
     </form>

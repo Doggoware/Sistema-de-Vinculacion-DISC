@@ -34,9 +34,8 @@ class ConvenioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-
 
         $convenios = request()->validate([
             'nombre_empresa' => 'required',
@@ -52,13 +51,23 @@ class ConvenioController extends Controller
             'evidencia.required' => 'Debe subir un archivo .pdf',
         ]);
 
-        Convenio::create([
+        // cache the file
+        $file = $request->file('evidencia');
+
+        // generate a new filename. getClientOriginalExtension() for the file extension
+        $filename = 'evidencia-' . time() . '.' . $file->getClientOriginalExtension();
+
+        // save to storage/app/photos as the new $filename
+        $path = $file->storeAs('photos', $filename);
+
+        $ext = Convenio::create([
             'nombre_empresa' => $convenios['nombre_empresa'],
             'tipo_convenio' => $convenios['tipo_convenio'],
             'fecha_inicio' => $convenios['fecha_inicio'],
             'fecha_termino' => $convenios['fecha_termino'],
             'evidencia' => $convenios['evidencia']
         ]);
+        $ext -> save();
         return redirect()->route('convenio.index');
     }
 

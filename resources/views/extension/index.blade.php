@@ -11,7 +11,6 @@
                 {{$extension->organizador}}
                 {{$extension->tipo_convenio}}
                 {{$extension->evidencia}}
-                {{$extension->fotos}}
             </li>
         @endforeach
     </ul>
