@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\aprendizaje;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AprendizajeController extends Controller
 {
@@ -36,6 +37,16 @@ class AprendizajeController extends Controller
      */
     public function store(Request $request)
     {
+        if(DB::table('actualizars')->where('id', '1')->doesntExist()){
+            DB::table('actualizars')->insert([
+                'convenios' => 0,
+                'extension' => 0,
+                'aprendizajes' => 0,
+                'titulados' => 0,
+                'titulacion' => 0
+            ]);
+        }
+
         $aprendizaje = request()->validate([
             'asignatura' => 'required',
             'nombre' => ['required','regex:/^[A-Za-z]+([\ A-Za-z]+)*/'],
@@ -80,6 +91,7 @@ class AprendizajeController extends Controller
             'evidencia' => $aprendizaje['evidencia']
         ]);
         $apre -> save();
+        DB::table('actualizars')->where('id',1)->increment('aprendizajes');
         return redirect()->route('aprendizaje.index');
     }
 

@@ -259,6 +259,9 @@
                 <li>
                     <a href="{{ url('aprendizaje/create') }}"><i class="fa fa-graduation-cap fa-fw"></i> Registrar Actividad de Aprendizaje + Servicio</a>
                 </li>
+                <li>
+                    <a href="{{ url('titulados/create') }}"><i class=" 	fa fa-id-card-o fa-fw"></i> Registrar Titulados</a>
+                </li>
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

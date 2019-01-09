@@ -37,7 +37,17 @@ class ConvenioController extends Controller
      */
     public function store(Request $request)
     {
-        $convenios = request()->validate([
+        if(DB::table('actualizars')->where('id', '1')->doesntExist()){
+            DB::table('actualizars')->insert([
+                'convenios' => 0,
+                'extension' => 0,
+                'aprendizajes' => 0,
+                'titulados' => 0,
+                'titulacion' => 0
+            ]);
+        }
+
+        request()->validate([
             'nombre_empresa' => 'required',
             'tipo_convenio' => 'required',
             'fecha_inicio' => 'required|before:today',
@@ -73,6 +83,7 @@ class ConvenioController extends Controller
 
             ]);
         }
+        DB::table('actualizars')->where('id',1)->increment('convenios');
         return redirect()->route('convenio.index');
     }
 

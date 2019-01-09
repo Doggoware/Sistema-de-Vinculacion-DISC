@@ -16,6 +16,11 @@ class CreateActualizarsTable extends Migration
         Schema::create('actualizars', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->integer('convenios');
+            $table->integer('extension');
+            $table->integer('aprendizajes');
+            $table->integer('titulados');
+            $table->integer('titulacion');
         });
     }
 

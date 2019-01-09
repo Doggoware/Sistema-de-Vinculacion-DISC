@@ -37,7 +37,17 @@ class ExtensionController extends Controller
      */
     public function store(Request $request)
     {
-        $extension =  request()->validate([
+        if(DB::table('actualizars')->where('id', '1')->doesntExist()){
+            DB::table('actualizars')->insert([
+                'convenios' => 0,
+                'extension' => 0,
+                'aprendizajes' => 0,
+                'titulados' => 0,
+                'titulacion' => 0
+            ]);
+        }
+
+        request()->validate([
             'titulo' => 'required',
             'nombre' => ['required','regex:/^[A-Za-z]+([\ A-Za-z]+)*/'],
             'lugar' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
@@ -77,7 +87,7 @@ class ExtensionController extends Controller
                 ]);
             $paths[]   = $photos->storeAs('photos', $filename);
         }
-
+        DB::table('actualizars')->where('id',1)->increment('extension');
         return redirect()->route('extension.index');
     }
 
