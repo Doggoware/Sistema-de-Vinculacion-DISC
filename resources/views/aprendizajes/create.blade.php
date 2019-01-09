@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-
     <form method="POST" action="{{ url('aprendizaje') }}">
         {{ csrf_field() }}
         <h3>Registrar Actividad de Aprendizaje + Servicio</h3>
@@ -53,11 +52,11 @@
         </div>
 
         <div class="custom-file">
-            <input type="file" class="custom-file-input" id="customFileLang" lang="es">
-            <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+            <input type="file" class="custom-file-input" name="evidencia" lang="es" accept=".pdf, .png, .jpg, .jpeg">
+            <label class="custom-file-label" for="evidencia">Seleccionar Archivo</label>
         </div>
         <div class="jumbotron text-center" >
-            <button type="button" class="btn btn-primary btn-lg">Registrar A+S</button>
+            <button type="submit" class="btn btn-primary btn-lg">Registrar A+S</button>
         </div>
 
     </form>
