@@ -29,7 +29,7 @@
         <input type="radio" name="semestre" value="1"> Primer Semestre<br>
         <input type="radio" name="semestre" value="2"> Segundo Semestre<br>
         <br>
-        <label for="evidencia">*Listado de participantes:*</label>
+        <label for="evidencia">*Listado de participantes:</label>
         <input type="file" name="evidencia" accept=".pdf, .png, .jpg, .jpeg">
         <br>
         <button type="submit">Registrar Actividad</button>
