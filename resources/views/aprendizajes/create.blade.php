@@ -1,6 +1,9 @@
 @extends('layouts.master')
 
+@section('title', "Registrar Actividad de Aprendizaje + Servicio")
+
 @section('content')
+<<<<<<< HEAD
     <form method="POST" action="{{ url('aprendizaje') }}">
         {{ csrf_field() }}
         <h3>Registrar Actividad de Aprendizaje + Servicio</h3>
@@ -58,6 +61,5 @@
         <div class="jumbotron text-center" >
             <button type="submit" class="btn btn-primary btn-lg">Registrar A+S</button>
         </div>
-
     </form>
 @endsection
