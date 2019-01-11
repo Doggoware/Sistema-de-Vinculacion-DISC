@@ -30,9 +30,9 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href={{ url('convenio/create') }}>Agregar Convevios</a>
-                        <a class="dropdown-item" href="#">Modificar Convenios</a>
+                        <a class="dropdown-item" href={{ route('convenio.index') }}>Modificar Convenios</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Eliminar Convenios</a>
+                        <a class="dropdown-item" href={{ route('convenio.index') }}>Eliminar Convenios</a>
                     </div>
                 </li>
 
@@ -41,10 +41,10 @@
                         Aprendizaje A+S
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href={{ url('aprendizaje/create') }}>Agregar Convevios</a>
-                        <a class="dropdown-item" href="#">Modificar Convenios</a>
+                        <a class="dropdown-item" href="{{ url('aprendizaje/create') }}">Agregar A+S</a>
+                        <a class="dropdown-item" href="{{ route('aprendizaje.index') }}">Modificar A+S</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Eliminar Convenios</a>
+                        <a class="dropdown-item" href="{{ route('aprendizaje.index') }}">Eliminar A+S</a>
                     </div>
                 </li>
 
@@ -53,12 +53,37 @@
                         Actividades de Extension
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href={{ url('extension/create') }}>Agregar Convevios</a>
-                        <a class="dropdown-item" href="#">Modificar Convenios</a>
+                        <a class="dropdown-item" href="{{ url('extension/create') }}">Agregar Extension</a>
+                        <a class="dropdown-item" href="{{ route('convenio.index') }}">Modificar Extension</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Eliminar Convenios</a>
+                        <a class="dropdown-item" href="{{ route('convenio.index') }}">Eliminar Extension</a>
                     </div>
                 </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Titulados
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url('titulados/create') }}">Agregar Titulado</a>
+                        <a class="dropdown-item" href="{{ route('titulados.index') }}">Modificar Titulado</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('titulados.index') }}">Eliminar Titulado</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Titulaciones
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url('titulacion/create') }}">Agregar Actividad de Titulacion</a>
+                        <a class="dropdown-item" href="{{ route('titulacion.index') }}">Modificar Actividad de Titulacion</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('titulacion.index') }}">Eliminar Actividad de Titulacion</a>
+                    </div>
+                </li>
+
             </ul>
         </div>
     </nav>
