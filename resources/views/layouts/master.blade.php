@@ -4,6 +4,7 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,59 +24,104 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow p-3 mb-5 rounded">
             <img src="http://www.ucn.cl/wp-content/uploads/2018/05/Escudo-UCN-Full-Color.png" width="80" height="80" class="m-2">
-            <a class="navbar-brand text-left" href="#">Sistema de Vinculacion DISC</a>
+            <a class="navbar-brand text-left" href="{{url('bienvenido')}}">Sistema de Vinculacion DISC</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Iniciar Sesion<span class="sr-only">(current)</span></a>
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Convenios
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href={{ url('convenio/create') }}>Agregar Convevios</a>
+                            <a class="dropdown-item" href="#">Modificar Convenios</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Eliminar Convenios</a>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Registrarse</a>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Aprendizaje A+S
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href={{ url('aprendizaje/create') }}>Agregar Convevios</a>
+                            <a class="dropdown-item" href="#">Modificar Convenios</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Eliminar Convenios</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Actividades de Extension
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href={{ url('extension/create') }}>Agregar Convevios</a>
+                            <a class="dropdown-item" href="#">Modificar Convenios</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Eliminar Convenios</a>
+                        </div>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
 
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="http://www.noticias.ucn.cl/wp-content/uploads/2018/05/UCNlogo.jpg" class="d-block w-80" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="http://www.noticias.ucn.cl/wp-content/files_mf/cache/th_7445c7bc99903fe147f3c84bdb82a492_capacitacionsoftware3.jpg" class="d-block w-80" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="https://scontent.fanf1-1.fna.fbcdn.net/v/t1.0-9/47175997_2081966991853860_8835773112659214336_n.jpg?_nc_cat=100&_nc_ht=scontent.fanf1-1.fna&oh=f086100e2ec61457507d449723388d1f&oe=5CBBEE16" class="d-block w-50" alt="...">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-
-
     <div class = "container-fluid">
-        <div class="jumbotron text-center" style="background: #3f9ae5">
-            @yield('content')
+
+        <div class="panel panel-default">
+
+            <div class="row">
+
+                <div class="col">
+                    <div class="jumbotron">
+
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="jumbotron-fluid shadow p-3 mb-5 rounded">
+                        @yield('content')
+                    </div>
+
+                </div>
+
+                <div class="col">
+                    <div class="jumbotron">
+
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-
     </div>
+
+    <footer id="footer">
+        <style>
+            footer
+            {
+                margin-top:50px;
+                width:100%;
+                height:150px;
+                background-color:#5a6268;
+            }
+        </style>
+        <div class="container-fluid align-content-around" style="background: #5a6268">
+
+            <div class="row align-bottom">
+
+                <div class="col-12 col-lg">
+                   <img src="https://eic.ucn.cl/wp-content/uploads/2017/10/acred-ucn-716.png">
+                </div>
+            </div>
+        </div>
+    </footer>
         <!-- /#page-wrapper -->
     <!-- /#wrapper -->
 

@@ -10,7 +10,7 @@
         * Campos obligatorios
         <br>
         <label for="nombre_titulado">* Nombre del titulado:</label>
-        <input type="text" name="nombre_titulado" id="nombre_titulado" placeholder="Juan Perez" value="{{old('nombre_titulado',nombre_titulado)}}">
+        <input type="text" name="nombre_titulado" id="nombre_titulado" placeholder="Juan Perez" value="{{old('nombre_titulado',$titulados->nombre_titulado)}}">
         <br>
         <label for="rut_titulado">* RUT del titulado:</label>
         <input type="text" name="rut_titulado" id="rut_titulado" placeholder="11.111.111-1" value="{{old('rut_titulado', $titulados->rut_titulado)}}">

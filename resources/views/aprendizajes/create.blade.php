@@ -3,7 +3,6 @@
 @section('title', "Registrar Actividad de Aprendizaje + Servicio")
 
 @section('content')
-<<<<<<< HEAD
     <form method="POST" action="{{ url('aprendizaje') }}">
         {{ csrf_field() }}
         <h3>Registrar Actividad de Aprendizaje + Servicio</h3>
@@ -45,19 +44,22 @@
 
         <div class="form-group row">
             <label for="semestre" class="col-sm-5 col-form-label">Semestre</label>
-            <div class="col-sm-7">
-                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                    <option selected>Seleccione...</option>
-                    <option value="1">Primer Semestre</option>
-                    <option value="2">Segundo Semestre</option>
-                </select>
+            <div class="col-sm-7 text-left">
+                <input type="radio" name="semestre" value="1"> Primer Semestre<br>
+                <input type="radio" name="semestre" value="2"> Segundo Semestre<br>
             </div>
         </div>
 
-        <div class="custom-file">
-            <input type="file" class="custom-file-input" name="evidencia" lang="es" accept=".pdf, .png, .jpg, .jpeg">
-            <label class="custom-file-label" for="evidencia">Seleccionar Archivo</label>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Button</button>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
+                <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+            </div>
         </div>
+
         <div class="jumbotron text-center" >
             <button type="submit" class="btn btn-primary btn-lg">Registrar A+S</button>
         </div>

@@ -7,41 +7,75 @@
 
     <form method="POST" enctype="multipart/form-data" action="{{ url('extension') }}">
         {{ csrf_field() }}
-        * Campos obligatorios
-        <br>
-        <label for="titulo">* Nombre de la actividad:</label>
-        <input type="text" name="titulo" id="titulo" placeholder="Charla de RV">
-        <br>
-        <label for="nombre">* Nombre del expositor:</label>
-        <input type="text" name="nombre" id="nombre" placeholder="Juan Perez">
-        <br>
-        <label for="fecha">* Fecha de la actividad: </label>
-        <input type="date" name="fecha">
-        <br>
-        <label for="lugar">* Lugar de la actividad:</label>
-        <input type="text" name="lugar" id="lugar" placeholder="Antofagasta">
-        <br>
-        <label for="cantidad">* Cantidad de participantes:</label>
-        <input type="text" name="cantidad" id="cantidad">
-        <br>
-        <label for="organizador">* Nombre del organizador:</label>
-        <input type="text" name="organizador" id="organizador" placeholder="Pedro Perez">
-        <br>
-        <label for="tipo_convenio">¿A qué convenio pertenece?</label>
-        <br>
-        <input type="radio" name="tipo_convenio" value="capstone" checked> Capstone
-        <br>
-        <input type="radio" name="tipo_convenio" value="marco"> Marco
-        <br>
-        <input type="radio" name="tipo_convenio" value="especifico"> Especifico
-        <br>
-        <input type="radio" name="tipo_convenio" value="as"> A+S
-        <br>
-        <input type="radio" name="tipo_convenio" value=""> Ninguno
-        <br>
-        <label for="evidencia">* Listado de participantes:</label>
-        <input type="file" name="evidencia[]" accept=".pdf, .png, .jpg, .jpeg" multiple>
-        <br>
-        <button type="submit">Registrar Actividad</button>
+
+        <div class="form-group row">
+            <label for="titulo" class="col-sm-5 col-form-label">Nombre de la Actividad</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="titulo" id="titulo" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="nombre" class="col-sm-5 col-form-label">Nombre del expositor</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="nombre" id="nombre" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="fecha" class="col-sm-5 col-form-label">Fecha de la actividad</label>
+            <div class="col-sm-7">
+                <input type="date" class="form-control" name="fecha" required>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label for="lugar" class="col-sm-5 col-form-label">Lugar de actividad</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="lugar" id="lugar" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="cantidad" class="col-sm-5 col-form-label">Cantidad de participantes</label>
+            <div class="col-sm-7">
+                <input type="number" class="form-control" name="cantidad" id="cantidad" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="organizador" class="col-sm-5 col-form-label">Nombre del organizador</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="organizador" id="organizador" required>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label for="tipo_convenio" class="col-sm-5 col-form-label">¿A que tioi de convenioo pertenece?</label>
+            <div class="col-sm-7">
+                <input type="radio" name="tipo_convenio" value="capstone"> Capstone
+                <br>
+                <input type="radio" name="tipo_convenio" value="marco"> Marco
+                <br>
+                <input type="radio" name="tipo_convenio" value="especifico"> Especifico
+                <br>
+                <input type="radio" name="tipo_convenio" value="as"> A+S
+                <br>
+                <input type="radio" name="tipo_convenio" value="" checked> Ninguno
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="evidencia" class="col-sm-5 col-form-label">Listado de participantes</label>
+            <div class="col-sm-7">
+                <input type="file" name="evidencia[]" accept=".pdf, .png, .jpg, .jpeg" multiple>
+            </div>
+        </div>
+
+        <div class="container text-center">
+            <button type="submit">Registrar Actividad</button>
+        </div>
     </form>
 @endsection
