@@ -14,61 +14,61 @@
 
     <title>@yield('title') Doggoware</title>
 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow p-3 mb-5 rounded">
+        <img src="http://www.ucn.cl/wp-content/uploads/2018/05/Escudo-UCN-Full-Color.png" width="80" height="80" class="m-2">
+        <a class="navbar-brand text-left" href="{{url('bienvenido')}}">Sistema de Vinculacion DISC</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Convenios
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href={{ url('convenio/create') }}>Agregar Convevios</a>
+                        <a class="dropdown-item" href="#">Modificar Convenios</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Eliminar Convenios</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Aprendizaje A+S
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href={{ url('aprendizaje/create') }}>Agregar Convevios</a>
+                        <a class="dropdown-item" href="#">Modificar Convenios</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Eliminar Convenios</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Actividades de Extension
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href={{ url('extension/create') }}>Agregar Convevios</a>
+                        <a class="dropdown-item" href="#">Modificar Convenios</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Eliminar Convenios</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
 </head>
 
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow p-3 mb-5 rounded">
-            <img src="http://www.ucn.cl/wp-content/uploads/2018/05/Escudo-UCN-Full-Color.png" width="80" height="80" class="m-2">
-            <a class="navbar-brand text-left" href="{{url('bienvenido')}}">Sistema de Vinculacion DISC</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Convenios
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href={{ url('convenio/create') }}>Agregar Convevios</a>
-                            <a class="dropdown-item" href="#">Modificar Convenios</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Eliminar Convenios</a>
-                        </div>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Aprendizaje A+S
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href={{ url('aprendizaje/create') }}>Agregar Convevios</a>
-                            <a class="dropdown-item" href="#">Modificar Convenios</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Eliminar Convenios</a>
-                        </div>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Actividades de Extension
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href={{ url('extension/create') }}>Agregar Convevios</a>
-                            <a class="dropdown-item" href="#">Modificar Convenios</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Eliminar Convenios</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
     </header>
 
     <div class = "container-fluid">

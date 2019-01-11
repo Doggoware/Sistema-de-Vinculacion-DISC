@@ -7,29 +7,56 @@
 
     <form method="POST" action="{{ url('titulados') }}">
         {{ csrf_field() }}
-        * Campos obligatorios
-        <br>
-        <label for="nombre_titulado">* Nombre del titulado:</label>
-        <input type="text" name="nombre_titulado" id="nombre_titulado" placeholder="Juan Perez">
-        <br>
-        <label for="rut_titulado">* RUT del titulado:</label>
-        <input type="text" name="rut_titulado" id="rut_titulado" placeholder="12345678-9">
-        <br>
-        <label for="telefono_titulado">Teléfono del titulado:</label>
-        <input type="text" name="telefono_titulado" id="telefono_titulado" placeholder="87654321">
-        <br>
-        <label for="correo_titulado">Correo del titulado:</label>
-        <input type="text" name="correo_titulado" id="correo_titulado" placeholder="jperez@placeholder.com">
-        <br>
-        <label for="empresa_trabaja">Empresa donde trabaja:</label>
-        <input type="text" name="empresa_trabaja" id="empresa_trabaja" placeholder="Doggoware">
-        <br>
-        <label for="anio_titulacion">* Año de titulacion:</label>
-        <input type="text" name="anio_titulacion", id="anio_titulacion">
-        <br>
-        <label for="carrera">* Carrera:</label>
-        <input type="text" name="carrera" id="carrera">
-        <br>
+
+        <div class="form-group row">
+            <label for="nombre_titulado" class="col-sm-5 col-form-label">Nombre del titulado</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="nombre_titulado" id="nombre_titulado" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="rut_titulado" class="col-sm-5 col-form-label">Run del titulado</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="rut_titulado" id="rut_titulado" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="telefono_titulado" class="col-sm-5 col-form-label">Telefono</label>
+            <div class="col-sm-7">
+                <input type="tel" class="form-control" name="telefono_titulado" id="telefono_titulado" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="correo_titulado" class="col-sm-5 col-form-label">Correo</label>
+            <div class="col-sm-7">
+                <input type="email" class="form-control" name="correo_titulado" id="correo_titulado" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="empresa_trabaja" class="col-sm-5 col-form-label">Nombre de la empresa</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="empresa_trabaja" id="empresa_trabaja" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="anio_titulacion" class="col-sm-5 col-form-label">Año de tiutalacion</label>
+            <div class="col-sm-7">
+                <input type="number" class="form-control" name="anio_titulacion" id="anio_titulacion" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="carrera" class="col-sm-5 col-form-label">Carrera</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="carrera" id="carrera" required>
+            </div>
+        </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <input type="submit"  value="Registrar" class="btn btn-success btn-block">
             <a href="{{ route('titulados.index') }}" class="btn btn-info btn-block" >Atrás</a>
