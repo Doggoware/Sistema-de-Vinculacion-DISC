@@ -7,7 +7,6 @@
 
     <form method="POST" enctype="multipart/form-data" action="{{ url('convenio') }}">
         {{ csrf_field() }}
-<<<<<<< HEAD
 
         <div class="form-group row">
             <label for="nombre_empresa" class="col-sm-5 col-form-label">Nombre de la emopresa</label>

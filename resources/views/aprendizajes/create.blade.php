@@ -7,7 +7,6 @@
         {{ csrf_field() }}
         <h3>Registrar Actividad de Aprendizaje + Servicio</h3>
         <br>
-<<<<<<< HEAD
         <div class="form-group row">
             <label for="asignatura" class="col-sm-5 col-form-label">Nombre de la asignatura</label>
             <div class="col-sm-7">

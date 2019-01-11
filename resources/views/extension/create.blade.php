@@ -7,8 +7,6 @@
 
     <form method="POST" enctype="multipart/form-data" action="{{ url('extension') }}">
         {{ csrf_field() }}
-<<<<<<< HEAD
-
         <div class="form-group row">
             <label for="titulo" class="col-sm-5 col-form-label">Nombre de la Actividad</label>
             <div class="col-sm-7">
