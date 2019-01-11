@@ -14,8 +14,12 @@ class AprendizajeController extends Controller
      */
     public function index()
     {
+
+        $aprendizaje=aprendizaje::orderBy('id','DESC')->paginate(3);
+        return view('aprendizajes.index',compact('aprendizaje'));
+        /*
         $aprendizaje = aprendizaje::all();
-        return view('aprendizajes.index', compact('aprendizaje'));
+        return view('aprendizajes.index', compact('aprendizaje'));*/
     }
 
     /**
@@ -82,9 +86,10 @@ class AprendizajeController extends Controller
      * @param  \App\aprendizaje  $aprendizaje
      * @return \Illuminate\Http\Response
      */
-    public function edit(aprendizaje $aprendizaje)
+    public function edit($id)
     {
-        //
+        $aprendizaje=aprendizaje::find($id);
+        return view('aprendizajes.edit',compact('aprendizaje'));
     }
 
     /**
@@ -94,9 +99,28 @@ class AprendizajeController extends Controller
      * @param  \App\aprendizaje  $aprendizaje
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, aprendizaje $aprendizaje)
+    public function update(Request $request, $id)
     {
-        //
+        $aprendizaje = request()->validate([
+            'asignatura' => 'required',
+            'nombre' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
+            'cantidad' => 'required|integer',
+            'socio' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
+            'año' => 'required|integer|digits:4|min:0',
+            'semestre' => 'required|integer|min:1|max:2',
+            'evidencia' => 'required',
+        ], [
+            'asignatura.required' => 'El campo nombre asignatura es obligatorio',
+            'nombre.required' => 'El campo nombre del profesor es obligatorio',
+            'cantidad.required' => 'El campo cantidad de alumnos es obligatorio',
+            'socio.required' => 'El campo socio comunitario es obligatorio',
+            'año.required' => 'El campo año es obligatrio',
+            'semestre.required' => 'El campo semestre es obligatario',
+            'evidencia.required' => 'Debe agregar evidencia de la actividad'
+        ]);
+
+        aprendizaje::find($id)->update($request->all());
+        return redirect()->route('aprendizajes.index')->with('success','Registro actualizado satisfactoriamente');
     }
 
     /**
@@ -105,8 +129,9 @@ class AprendizajeController extends Controller
      * @param  \App\aprendizaje  $aprendizaje
      * @return \Illuminate\Http\Response
      */
-    public function destroy(aprendizaje $aprendizaje)
+    public function destroy($id)
     {
-        //
+        Aprendizaje::find($id)->delete();
+        return redirect()->route('aprendizajes.index')->with('success','Registro eliminado satisfactoriamente');
     }
 }

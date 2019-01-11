@@ -34,7 +34,12 @@
         <label for="carrera">Carrera:</label>
         <input type="text" name="carrera" id="carrera">
         *
-        <br>
-        <button type="submit">Registrar Titulado</button>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <input type="submit"  value="Registrar" class="btn btn-success btn-block">
+            <a href="{{ route('titulados.index') }}" class="btn btn-info btn-block" >Atrás</a>
+        </div>
+
+
     </form>
 @endsection

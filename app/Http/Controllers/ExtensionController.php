@@ -14,8 +14,10 @@ class ExtensionController extends Controller
      */
     public function index()
     {
-        $extension = extension::all();
-        return view('extension.index', compact('extension'));
+       /* $extension = extension::all();
+        return view('extension.index', compact('extension'));*/
+        $extension=extension::orderBy('id','DESC')->paginate(3);
+        return view('extension.index',compact('extension'));
     }
 
     /**
@@ -92,9 +94,10 @@ class ExtensionController extends Controller
      * @param  \App\extension  $extension
      * @return \Illuminate\Http\Response
      */
-    public function edit(extension $extension)
+    public function edit($id)
     {
-        //
+        $extension=extensiones::find($id);
+        return view('extension.edit',compact('extension'));
     }
 
     /**
@@ -104,9 +107,29 @@ class ExtensionController extends Controller
      * @param  \App\extension  $extension
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, extension $extension)
+    public function update(Request $request, $id)
     {
-        //
+        $extension =  request()->validate([
+            'titulo' => 'required',
+            'nombre' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
+            'lugar' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
+            'fecha' => 'required|before:today',
+            'cantidad' => 'required|integer|min:0',
+            'organizador' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
+            'tipo_convenio' => '',
+            'evidencia' => 'required',
+        ], [
+            'titulo.required' => 'El campo título de actividad es obligatorio',
+            'nombre.required' => 'El campo nombre del expositor es obligatorio',
+            'lugar.required' => 'El campo lugar es obligatorio',
+            'fecha.required' => 'El campo fecha es obligatorio',
+            'cantidad.required' => 'El campo cantidad de estudiantes es obligatario',
+            'organizador.required' => 'El campo organizador es obligatorio',
+            'evidencia.required' => 'Debe subir evidencia de la actividad'
+        ]);
+
+        extension::find($id)->update($request->all());
+        return redirect()->route('extension.index')->with('success','Registro actualizado satisfactoriamente');
     }
 
     /**
@@ -115,8 +138,9 @@ class ExtensionController extends Controller
      * @param  \App\extension  $extension
      * @return \Illuminate\Http\Response
      */
-    public function destroy(extension $extension)
+    public function destroy($id)
     {
-        //
+        Extension::find($id)->delete();
+        return redirect()->route('extencion.index')->with('success','Registro eliminado satisfactoriamente');
     }
 }

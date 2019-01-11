@@ -55,9 +55,10 @@ class TitulacionController extends Controller
      * @param  \App\Titulacion  $titulacion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Titulacion $titulacion)
+    public function edit($id)
     {
-        //
+        $titulacion=titulacion::find($id);
+        return view('titulacion.edit',compact('titulacion'));
     }
 
     /**
@@ -67,9 +68,12 @@ class TitulacionController extends Controller
      * @param  \App\Titulacion  $titulacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Titulacion $titulacion)
+    public function update(Request $request, $id)
     {
-        //
+
+
+        titulacion::find($id)->update($request->all());
+        return redirect()->route('titulacion.index')->with('success','Registro actualizado satisfactoriamente');
     }
 
     /**
@@ -78,8 +82,9 @@ class TitulacionController extends Controller
      * @param  \App\Titulacion  $titulacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Titulacion $titulacion)
+    public function destroy($id)
     {
-        //
+        Titulacions::find($id)->delete();
+        return redirect()->route('titulacion.index')->with('success','Registro eliminado satisfactoriamente');
     }
 }

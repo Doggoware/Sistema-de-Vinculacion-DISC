@@ -30,6 +30,9 @@
         <label for="evidencia">Evidencia de la actividad:*</label>
         <input type="file" name="evidencia" accept=".pdf">
         <br>
-        <button type="submit">Registrar Convenio</button>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <input type="submit"  value="Registrar" class="btn btn-success btn-block">
+            <a href="{{ route('convenio.index') }}" class="btn btn-info btn-block" >Atrás</a>
+        </div>
     </form>
 @endsection

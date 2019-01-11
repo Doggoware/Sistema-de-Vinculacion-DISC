@@ -14,8 +14,10 @@ class ConvenioController extends Controller
      */
     public function index()
     {
-        $convenios = Convenio::all();
-        return view('convenios.index', compact('convenios'));
+        /*$convenios = Convenio::all();
+        return view('convenios.index', compact('convenios'));*/
+        $convenios=Convenio::orderBy('id','DESC')->paginate(3);
+        return view('convenios.index',compact('convenios'));
     }
 
     /**
@@ -86,9 +88,10 @@ class ConvenioController extends Controller
      * @param  \App\Convenio  $convenio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Convenio $convenio)
+    public function edit($id)
     {
-        //
+        $convenio=convenio::find($id);
+        return view('convenios.edit',compact('convenio'));
     }
 
     /**
@@ -98,9 +101,25 @@ class ConvenioController extends Controller
      * @param  \App\Convenio  $convenio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Convenio $convenio)
+    public function update(Request $request, $id)
     {
-        //
+
+        $convenios = request()->validate([
+            'nombre_empresa' => 'required',
+            'tipo_convenio' => 'required',
+            'fecha_inicio' => 'required|before:today',
+            'fecha_termino' => 'required|after_or_equal:fecha_inicio',
+            'evidencia' => 'required',
+        ], [
+            'nombre_empresa.required' => 'El campo nombre es obligatorio',
+            'tipo_convenio.required' => 'El campo convenio es obligatorio',
+            'fecha_inicio.required' => 'El campo fecha de inicio es obligatorio',
+            'fecha_termino.required' => 'El campo fecha de termino es obligatorio',
+            'evidencia.required' => 'Debe subir un archivo .pdf',
+        ]);
+
+        convenio::find($id)->update($request->all());
+        return redirect()->route('convenio.index')->with('success','Registro actualizado satisfactoriamente');
     }
 
     /**
@@ -109,8 +128,9 @@ class ConvenioController extends Controller
      * @param  \App\Convenio  $convenio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Convenio $convenio)
+    public function destroy($id)
     {
-        //
+        Convenio::find($id)->delete();
+        return redirect()->route('convenio.index')->with('success','Registro eliminado satisfactoriamente');
     }
 }

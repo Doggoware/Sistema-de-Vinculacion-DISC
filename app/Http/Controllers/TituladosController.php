@@ -14,7 +14,8 @@ class TituladosController extends Controller
      */
     public function index()
     {
-        $titulados = titulados::all();
+
+        $titulados=Titulados::orderBy('id','DESC')->paginate(3);
         return view('titulados.index',compact('titulados'));
     }
 
@@ -39,7 +40,7 @@ class TituladosController extends Controller
         $titulados = request()->validate([
             'nombre_titulado' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
             'rut_titulado' => 'required',
-            'telefono_titulado' =>'nullable|integer|digits:4|min:0',
+            'telefono_titulado' =>'nullable|integer|digits:8|min:0',
             'correo_titulado'=>'sometimes',
             'empresa_trabaja'=>'sometimes',
             'año_titulacion'=>'required|integer|digits:4|min:0',
@@ -62,7 +63,7 @@ class TituladosController extends Controller
         ]);
 
         $titus->save();
-        return redirect()->route('titulados.index');
+        return redirect()->route('titulados.index')->with('success','Registro creado satisfactoriamente');;
     }
 
     /**
@@ -71,9 +72,10 @@ class TituladosController extends Controller
      * @param  \App\Titulados  $titulados
      * @return \Illuminate\Http\Response
      */
-    public function show(Titulados $titulados)
+    public function show($id)
     {
-        //
+       /* $titulados=titulados::find($id);
+        return  view('titulados.show',compact('titulados'));*/
     }
 
     /**
@@ -82,9 +84,12 @@ class TituladosController extends Controller
      * @param  \App\Titulados  $titulados
      * @return \Illuminate\Http\Response
      */
-    public function edit(Titulados $titulados)
+    public function edit($id)
     {
-        //
+
+        $titulado=titulados::find($id);
+        return view('titulados.edit',compact('titulado'));
+
     }
 
     /**
@@ -94,9 +99,25 @@ class TituladosController extends Controller
      * @param  \App\Titulados  $titulados
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Titulados $titulados)
+    public function update(Request $request,$id)
     {
-        //
+        $titulados = request()->validate([
+            'nombre_titulado' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
+            'rut_titulado' => 'required',
+            'telefono_titulado' =>'nullable|integer|digits:8|min:0',
+            'correo_titulado'=>'sometimes',
+            'empresa_trabaja'=>'sometimes',
+            'año_titulacion'=>'required|integer|digits:4|min:0',
+            'carrera'=>'required',
+        ],[
+            'nombre_titulado.required'=>'El campo nombre es obligatorio',
+            'rut_titulado.required' => 'El campo RUT es obligatorio',
+            'año_titulacion.required'=>'El campo año de titulacion es obligatorio',
+            'carrera.required'=>'El campo carrera es obligatorio',
+        ]);
+
+        titulados::find($id)->update($request->all());
+        return redirect()->route('titulados.index')->with('success','Registro actualizado satisfactoriamente');
     }
 
     /**
@@ -105,8 +126,9 @@ class TituladosController extends Controller
      * @param  \App\Titulados  $titulados
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Titulados $titulados)
+    public function destroy($id)
     {
-        //
+        Titulados::find($id)->delete();
+        return redirect()->route('titulados.index')->with('success','Registro eliminado satisfactoriamente');
     }
 }
