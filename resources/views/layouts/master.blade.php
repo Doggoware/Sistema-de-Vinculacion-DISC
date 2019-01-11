@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>@yield('title') SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>@yield('title') Sistema de Vinculación DISC</title>
 
     <!-- Bootstrap Core CSS -->
     <link href={{asset("vendor/bootstrap/css/bootstrap.min.css")}} rel="stylesheet">

@@ -32,6 +32,10 @@
         <label for="evidencia">*Listado de participantes:</label>
         <input type="file" name="evidencia" accept=".pdf, .png, .jpg, .jpeg">
         <br>
-        <button type="submit">Registrar Actividad</button>
+        <br>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <input type="submit"  value="Registrar" class="btn btn-success btn-block">
+            <a href="{{ route('aprendizaje.index') }}" class="btn btn-info btn-block" >Atrás</a>
+        </div>
     </form>
 @endsection

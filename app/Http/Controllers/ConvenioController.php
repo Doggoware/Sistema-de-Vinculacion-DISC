@@ -15,8 +15,8 @@ class ConvenioController extends Controller
      */
     public function index()
     {
-        $convenios = Convenio::all();
-        return view('convenios.index', compact('convenios'));
+        $convenios=Convenio::orderBy('id','DESC')->paginate(3);
+        return view('convenios.index',compact('convenios'));
     }
 
     /**
@@ -72,7 +72,7 @@ class ConvenioController extends Controller
 
         $input = $request->all();
         $tipo = $request->input('tipo_convenio');
-        foreach($tipo as $tip){
+        foreach($tipo as $tip) {
             DB::table('convenios')->insert(
                 [
                     'nombre_empresa' => $request->input('nombre_empresa'),
@@ -80,11 +80,10 @@ class ConvenioController extends Controller
                     'fecha_inicio' => $request->input('fecha_inicio'),
                     'fecha_termino' => $request->input('fecha_termino'),
                     'evidencia' => $filename,
-
-            ]);
+                ]);
+            DB::table('actualizars')->where('id', 1)->increment('convenios');
         }
-        DB::table('actualizars')->where('id',1)->increment('convenios');
-        return redirect()->route('convenio.index');
+        return redirect()->route('convenio.index')->with('success','¡Datos agregados con éxito!');
     }
 
     /**
@@ -104,9 +103,10 @@ class ConvenioController extends Controller
      * @param  \App\Convenio  $convenio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Convenio $convenio)
+    public function edit($id)
     {
-        //
+        $convenio=convenio::find($id);
+        return view('convenios.edit',compact('convenio'));
     }
 
     /**
@@ -116,9 +116,25 @@ class ConvenioController extends Controller
      * @param  \App\Convenio  $convenio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Convenio $convenio)
+    public function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'nombre_empresa' => 'required',
+            'tipo_convenio' => 'required',
+            'fecha_inicio' => 'required|before:today',
+            'fecha_termino' => 'required|after_or_equal:fecha_inicio',
+            'evidencia' => 'required',
+        ], [
+            'nombre_empresa.required' => 'El campo nombre es obligatorio',
+            'tipo_convenio.required' => 'El campo convenio es obligatorio',
+            'fecha_inicio.required' => 'El campo fecha de inicio es obligatorio',
+            'fecha_inicio.before' => 'La fecha de inicio tiene que ser antes del día de hoy',
+            'fecha_termino.required' => 'El campo fecha de termino es obligatorio',
+            'fecha_termino.after_or_equal' => 'La fecha de termino tiene que ser después de la fecha de inicio establecida',
+            'evidencia.required' => 'Debe subir un archivo .pdf',
+        ]);
+        Convenio::find($id)->update($request->all());
+        return redirect()->route('convenio.index')->with('success','Registro actualizado satisfactoriamente');
     }
 
     /**
@@ -127,8 +143,10 @@ class ConvenioController extends Controller
      * @param  \App\Convenio  $convenio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Convenio $convenio)
+    public function destroy($id)
     {
-        //
+        Convenio::find($id)->delete();
+        DB::table('actualizars')->where('id',1)->decrement('convenios');
+        return redirect()->route('convenio.index')->with('success','Registro eliminado satisfactoriamente');
     }
 }

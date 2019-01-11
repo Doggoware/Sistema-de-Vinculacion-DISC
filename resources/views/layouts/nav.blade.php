@@ -6,7 +6,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+        <a class="navbar-brand" href="index.html">Sistema de Vinculación DISC</a>
     </div>
     <!-- /.navbar-header -->
 
@@ -251,16 +251,19 @@
                 </li> -->
                 <!-- /.nav-second-level -->
                 <li>
-                    <a href="{{ url('convenio/create') }}"><i class="fa fa-users fa-fw"></i> Registrar Convenios de Colaboración</a>
+                    <a href="{{ url('convenio') }}"><i class="fa fa-users fa-fw"></i> Administrar Convenios de Colaboración</a>
                 </li>
                 <li>
-                    <a href="{{ url('extension/create') }}"><i class="fa fa-comments fa-fw"></i> Registrar Actividad de Extensión</a>
+                    <a href="{{ url('extension') }}"><i class="fa fa-comments fa-fw"></i> Administrar Actividad de Extensión</a>
                 </li>
                 <li>
-                    <a href="{{ url('aprendizaje/create') }}"><i class="fa fa-graduation-cap fa-fw"></i> Registrar Actividad de Aprendizaje + Servicio</a>
+                    <a href="{{ url('aprendizaje') }}"><i class="fa fa-binoculars fa-fw"></i> Administrar Actividad de Aprendizaje + Servicio</a>
                 </li>
                 <li>
-                    <a href="{{ url('titulados/create') }}"><i class=" 	fa fa-id-card-o fa-fw"></i> Registrar Titulados</a>
+                    <a href="{{ url('titulacion') }}"><i class="fa fa-graduation-cap fa-fw"></i> Administrar Actividad de Titulación por Convenio</a>
+                </li>
+                <li>
+                    <a href="{{ url('titulados') }}"><i class="fa fa-id-card-o fa-fw"></i> Administrar Titulados</a>
                 </li>
             </ul>
         </div>

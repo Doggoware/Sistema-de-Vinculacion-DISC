@@ -78,11 +78,11 @@
         </div>
 
         <div class="links">
-            <a href={{ url('convenio/create') }}>Administrar Convenios</a><br/><br/>
-            <a href={{ url('extension/create') }}>Administrar Actividades de Extención</a><br/><br/>
-            <a href={{ url('aprendizaje/create') }}>Administrar Actividades de A+S</a><br/><br/>
-           <!-- <a href={{ url('titulacion/create') }}>Administrar Actividades de titulación</a><br/><br/>-->
-            <a href={{ url('titulados/create') }}>Registrar Titulados</a><br/><br/>
+            <a href={{ url('convenio') }}>Administrar Convenios</a><br/><br/>
+            <a href={{ url('extension') }}>Administrar Actividades de Extención</a><br/><br/>
+            <a href={{ url('aprendizaje') }}>Administrar Actividades de A+S</a><br/><br/>
+           <a href={{ url('titulacion') }}>Administrar Actividades de titulación</a><br/><br/>
+            <a href={{ url('titulados') }}>Administrar Titulados</a><br/><br/>
         </div>
     </div>
 </div>

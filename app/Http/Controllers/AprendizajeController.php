@@ -15,8 +15,8 @@ class AprendizajeController extends Controller
      */
     public function index()
     {
-        $aprendizaje = aprendizaje::all();
-        return view('aprendizajes.index', compact('aprendizaje'));
+        $aprendizaje=aprendizaje::orderBy('id','DESC')->paginate(3);
+        return view('aprendizajes.index',compact('aprendizaje'));
     }
 
     /**
@@ -88,11 +88,11 @@ class AprendizajeController extends Controller
             'socio' => $aprendizaje['socio'],
             'año' => $aprendizaje['año'],
             'semestre' => $aprendizaje['semestre'],
-            'evidencia' => $aprendizaje['evidencia']
+            'evidencia' => $filename
         ]);
         $apre -> save();
         DB::table('actualizars')->where('id',1)->increment('aprendizajes');
-        return redirect()->route('aprendizaje.index');
+        return redirect()->route('aprendizaje.index')->with('success','¡Datos agregados con éxito!');
     }
 
     /**
@@ -112,9 +112,10 @@ class AprendizajeController extends Controller
      * @param  \App\aprendizaje  $aprendizaje
      * @return \Illuminate\Http\Response
      */
-    public function edit(aprendizaje $aprendizaje)
+    public function edit($id)
     {
-        //
+        $aprendizaje=aprendizaje::find($id);
+        return view('aprendizajes.edit',compact('aprendizaje'));
     }
 
     /**
@@ -124,9 +125,37 @@ class AprendizajeController extends Controller
      * @param  \App\aprendizaje  $aprendizaje
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, aprendizaje $aprendizaje)
+    public function update(Request $request, $id)
     {
-        //
+        $aprendizaje = request()->validate([
+            'asignatura' => 'required',
+            'nombre' => ['required','regex:/^[A-Za-z]+([\ A-Za-z]+)*/'],
+            'cantidad' => 'required|integer|min:0',
+            'socio' => ['required','regex:/^[A-Za-z]+([\ A-Za-z]+)*/'],
+            'año' => 'required|integer|digits:4|min:1900',
+            'semestre' => 'required|integer|min:1|max:2',
+            'evidencia' => 'required',
+        ], [
+            'asignatura.required' => 'El campo nombre asignatura es obligatorio',
+            'nombre.required' => 'El campo nombre del profesor es obligatorio',
+            'nombre.regex' => 'El nombre debe contener solo letras',
+            'cantidad.required' => 'El campo cantidad de alumnos es obligatorio',
+            'socio.required' => 'El campo socio comunitario es obligatorio',
+            'cantidad.integer' => 'La cantidad de participantes tiene que ser un entero positivo',
+            'cantidad.min' => 'La cantidad de participantes tiene que ser un entero positivo',
+            'año.required' => 'El campo año es obligatrio',
+            'año.integer' => 'El año tiene que ser un entero positivo',
+            'año.min' => 'El año tiene que ser un entero positivo mayor a 1900',
+            'año.digits' => 'El año tiene que contener cuatro digitos',
+            'semestre.required' => 'El campo semestre es obligatario',
+            'semestre.integer' => 'El semestre tiene que ser un entero positivo',
+            'semetre.min' => 'El semestre tiene que ser mínimo 1',
+            'semestre.max' => 'El semestre tiene que ser máximo 2',
+            'evidencia.required' => 'Debe agregar evidencia de la actividad'
+        ]);
+
+        Aprendizaje::find($id)->update($request->all());
+        return redirect()->route('aprendizaje.index')->with('success','Registro actualizado satisfactoriamente');
     }
 
     /**
@@ -135,8 +164,10 @@ class AprendizajeController extends Controller
      * @param  \App\aprendizaje  $aprendizaje
      * @return \Illuminate\Http\Response
      */
-    public function destroy(aprendizaje $aprendizaje)
+    public function destroy($id)
     {
-        //
+        Aprendizaje::find($id)->delete();
+        DB::table('actualizars')->where('id',1)->decrement('aprendizajes');
+        return redirect()->route('aprendizaje.index')->with('success','Registro eliminado satisfactoriamente');
     }
 }
