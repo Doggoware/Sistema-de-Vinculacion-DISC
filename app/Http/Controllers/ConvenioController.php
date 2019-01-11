@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Convenio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ConvenioController extends Controller
 {
@@ -34,11 +35,19 @@ class ConvenioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
+        if(DB::table('actualizars')->where('id', '1')->doesntExist()){
+            DB::table('actualizars')->insert([
+                'convenios' => 0,
+                'extension' => 0,
+                'aprendizajes' => 0,
+                'titulados' => 0,
+                'titulacion' => 0
+            ]);
+        }
 
-
-        $convenios = request()->validate([
+        request()->validate([
             'nombre_empresa' => 'required',
             'tipo_convenio' => 'required',
             'fecha_inicio' => 'required|before:today',
@@ -48,17 +57,33 @@ class ConvenioController extends Controller
             'nombre_empresa.required' => 'El campo nombre es obligatorio',
             'tipo_convenio.required' => 'El campo convenio es obligatorio',
             'fecha_inicio.required' => 'El campo fecha de inicio es obligatorio',
+            'fecha_inicio.before' => 'La fecha de inicio tiene que ser antes del día de hoy',
             'fecha_termino.required' => 'El campo fecha de termino es obligatorio',
+            'fecha_termino.after_or_equal' => 'La fecha de termino tiene que ser después de la fecha de inicio establecida',
             'evidencia.required' => 'Debe subir un archivo .pdf',
         ]);
 
-        Convenio::create([
-            'nombre_empresa' => $convenios['nombre_empresa'],
-            'tipo_convenio' => $convenios['tipo_convenio'],
-            'fecha_inicio' => $convenios['fecha_inicio'],
-            'fecha_termino' => $convenios['fecha_termino'],
-            'evidencia' => $convenios['evidencia']
-        ]);
+        // cache the file
+        $file = $request->file('evidencia');
+        // generate a new filename. getClientOriginalExtension() for the file extension
+        $filename = 'evidencia-' . time() . '.' . $file->getClientOriginalExtension();
+        // save to storage/app/photos as the new $filename
+        $path = $file->storeAs('photos', $filename);
+
+        $input = $request->all();
+        $tipo = $request->input('tipo_convenio');
+        foreach($tipo as $tip){
+            DB::table('convenios')->insert(
+                [
+                    'nombre_empresa' => $request->input('nombre_empresa'),
+                    'tipo_convenio' => $tip,
+                    'fecha_inicio' => $request->input('fecha_inicio'),
+                    'fecha_termino' => $request->input('fecha_termino'),
+                    'evidencia' => $filename,
+
+            ]);
+        }
+        DB::table('actualizars')->where('id',1)->increment('convenios');
         return redirect()->route('convenio.index');
     }
 

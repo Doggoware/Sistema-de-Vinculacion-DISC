@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,91 +11,124 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>@yield('title') SB Admin 2 - Bootstrap Admin Theme</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href={{asset("vendor/bootstrap/css/bootstrap.min.css")}} rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href={{asset("vendor/metisMenu/metisMenu.min.css")}} rel="stylesheet">
+    <title>@yield('title') Doggoware</title>
 
-    <!-- Morris Charts CSS -->
-    <link href={{asset("vendor/morrisjs/morris.css")}} rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href={{asset("vendor/font-awesome/css/font-awesome.min.css")}} rel="stylesheet" type="text/css">
-
-    <!-- Bootstrap Core CSS
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <!-- MetisMenu CSS
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/3.0.3/metisMenu.css" rel="stylesheet">
-    -->
-    <!-- Custom CSS -->
-    <link href={{asset("css/sb-admin-2.min.css")}} rel="stylesheet">
-
-    <!-- Morris Charts CSS
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-
-    <!-- Custom Fonts
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
- -->
-    <script src={{asset("vendor/jquery/jquery.min.js")}}></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src={{asset("vendor/bootstrap/js/bootstrap.min.js")}}></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src={{asset("vendor/metisMenu/metisMenu.min.js")}}></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src={{asset("vendor/raphael/raphael.min.js")}}></script>
-    <script src={{asset("vendor/morrisjs/morris.min.js")}}></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src={{asset("js/sb-admin-2.min.js")}}></script>
 
 </head>
 
 <body>
 
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow p-3 mb-5 rounded">
+            <img src="http://www.ucn.cl/wp-content/uploads/2018/05/Escudo-UCN-Full-Color.png" width="80" height="80" class="m-2">
+            <a class="navbar-brand text-left" href="{{url('bienvenido')}}">Sistema de Vinculacion DISC</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <div id="wrapper">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
 
-        <!-- Navigation -->
-        @include('layouts.nav')
-
-        <div id="page-wrapper">
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Dashboard</h1>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Convenios
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href={{ url('convenio/create') }}>Agregar Convevios</a>
+                            <a class="dropdown-item" href="#">Modificar Convenios</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Eliminar Convenios</a>
                         </div>
-                    @endif
-                </div>
-                <!-- /.col-lg-12 -->
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Aprendizaje A+S
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href={{ url('aprendizaje/create') }}>Agregar Convevios</a>
+                            <a class="dropdown-item" href="#">Modificar Convenios</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Eliminar Convenios</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Actividades de Extension
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href={{ url('extension/create') }}>Agregar Convevios</a>
+                            <a class="dropdown-item" href="#">Modificar Convenios</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Eliminar Convenios</a>
+                        </div>
+                    </li>
+                </ul>
             </div>
+        </nav>
+    </header>
+
+    <div class = "container-fluid">
+
+        <div class="panel panel-default">
+
             <div class="row">
-                @yield('content')
+
+                <div class="col">
+                    <div class="jumbotron">
+
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="jumbotron-fluid shadow p-3 mb-5 rounded">
+                        @yield('content')
+                    </div>
+
+                </div>
+
+                <div class="col">
+                    <div class="jumbotron">
+
+                    </div>
+                </div>
             </div>
 
         </div>
-        <!-- /#page-wrapper -->
 
     </div>
+
+    <footer id="footer">
+        <style>
+            footer
+            {
+                margin-top:50px;
+                width:100%;
+                height:150px;
+                background-color:#5a6268;
+            }
+        </style>
+        <div class="container-fluid align-content-around" style="background: #5a6268">
+
+            <div class="row align-bottom">
+
+                <div class="col-12 col-lg">
+                   <img src="https://eic.ucn.cl/wp-content/uploads/2017/10/acred-ucn-716.png">
+                </div>
+            </div>
+        </div>
+    </footer>
+        <!-- /#page-wrapper -->
     <!-- /#wrapper -->
 
     <!-- jQuery -->
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 
-
-
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 </body>
 
 </html>

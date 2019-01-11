@@ -11,7 +11,7 @@ $factory->define(App\extension::class, function (Faker $faker) {
         'cantidad' => $faker->randomNumber($nbDigits = 24),
         'tipo_convenio' => $faker->name,
         'organizador' => $faker->name,
+        'tipo_convenio' => $faker->name,
         'evidencia' => $faker->name,
-        'foto' => $faker->name,
     ];
 });

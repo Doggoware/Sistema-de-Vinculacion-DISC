@@ -1,39 +1,67 @@
 @extends('layouts.master')
 
-@section('content')
-    <h1>Registrar Actividad de Aprendizaje + Servicio</h1>
+@section('title', "Registrar Actividad de Aprendizaje + Servicio")
 
+@section('content')
     <form method="POST" action="{{ url('aprendizaje') }}">
         {{ csrf_field() }}
-        * Campos obligatorios
+        <h3>Registrar Actividad de Aprendizaje + Servicio</h3>
         <br>
-        <label for="asignatura">Nombre de la asignatura:</label>
-        <input type="text" name="asignatura" id="asignatura" placeholder="Asignatura">
-        *
-        <br>
-        <label for="nombre">Nombre del profesor:</label>
-        <input type="text" name="nombre" id="nombre" placeholder="Juan Perez">
-        *
-        <br>
-        <label for="cantidad">Cantidad Estudiantes:</label>
-        <input type="text" name="cantidad" id="cantidad">
-        *
-        <br>
-        <label for="socio">Nombre del Socio Comunitario:</label>
-        <input type="text" name="socio" id="socio" placeholder="Diego Perez">
-        *
-        <br>
-        <laber for="año">Año:</laber>
-        <input type="text" name="año", id="año">
-        *
-        <br>
-        <label for="semestre">Semestre:</label>
-        <input type="text" name="semestre" id="semestre" placeholder="1 ó 2">
-        *
-        <br>
-        <label for="evidencia">Listado de participantes:*</label>
-        <input type="file" name="evidencia" accept=".pdf, .png, .jpg, .jpeg">
-        <br>
-        <button type="submit">Registrar Actividad</button>
+        <div class="form-group row">
+            <label for="asignatura" class="col-sm-5 col-form-label">Nombre de la asignatura</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="asignatura" id="asignatura" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-5 col-form-label">Nombre del profesor(a)</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="nombre" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="cantidad" class="col-sm-5 col-form-label">Cantidad de estudiantes</label>
+            <div class="col-sm-7">
+                <input type="number" class="form-control" name="cantidad" id="cantidad" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="socio" class="col-sm-5 col-form-label">Nombre del socio comunitario</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="socio" id="socio" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="año" class="col-sm-5 col-form-label">Año</label>
+            <div class="col-sm-7">
+                <input type="number" class="form-control" name="año" id="año" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="semestre" class="col-sm-5 col-form-label">Semestre</label>
+            <div class="col-sm-7 text-left">
+                <input type="radio" name="semestre" value="1"> Primer Semestre<br>
+                <input type="radio" name="semestre" value="2"> Segundo Semestre<br>
+            </div>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Button</button>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
+                <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+            </div>
+        </div>
+
+        <div class="jumbotron text-center" >
+            <button type="submit" class="btn btn-primary btn-lg">Registrar A+S</button>
+        </div>
     </form>
 @endsection
