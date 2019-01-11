@@ -50,18 +50,18 @@
             </div>
         </div>
 
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Button</button>
-            </div>
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
-                <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+
+        <div class="form-group row">
+            <label for="evidencia" class="col-sm-5 col-form-label">Listado de participantes</label>
+            <div class="col-sm-7 text-left">
+                <input type="file" name="evidencia" accept=".pdf, .png, .jpg, .jpeg">
             </div>
         </div>
 
-        <div class="jumbotron text-center" >
-            <button type="submit" class="btn btn-primary btn-lg">Registrar A+S</button>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <input type="submit"  value="Registrar" class="btn btn-success btn-block">
+            <a href="{{ route('aprendizaje.index') }}" class="btn btn-info btn-block" >Atrás</a>
         </div>
     </form>
 @endsection
