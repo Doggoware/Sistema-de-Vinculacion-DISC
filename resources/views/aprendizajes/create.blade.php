@@ -7,6 +7,7 @@
         {{ csrf_field() }}
         <h3>Registrar Actividad de Aprendizaje + Servicio</h3>
         <br>
+<<<<<<< HEAD
         <div class="form-group row">
             <label for="asignatura" class="col-sm-5 col-form-label">Nombre de la asignatura</label>
             <div class="col-sm-7">
@@ -57,7 +58,6 @@
                 <input type="file" name="evidencia" accept=".pdf, .png, .jpg, .jpeg">
             </div>
         </div>
-
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <input type="submit"  value="Registrar" class="btn btn-success btn-block">

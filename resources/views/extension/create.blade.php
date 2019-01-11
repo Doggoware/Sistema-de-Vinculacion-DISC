@@ -7,6 +7,7 @@
 
     <form method="POST" enctype="multipart/form-data" action="{{ url('extension') }}">
         {{ csrf_field() }}
+<<<<<<< HEAD
 
         <div class="form-group row">
             <label for="titulo" class="col-sm-5 col-form-label">Nombre de la Actividad</label>
@@ -74,8 +75,9 @@
             </div>
         </div>
 
-        <div class="container text-center">
-            <button type="submit">Registrar Actividad</button>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <input type="submit"  value="Registrar" class="btn btn-success btn-block">
+            <a href="{{ route('convenio.index') }}" class="btn btn-info btn-block" >Atrás</a>
         </div>
     </form>
 @endsection

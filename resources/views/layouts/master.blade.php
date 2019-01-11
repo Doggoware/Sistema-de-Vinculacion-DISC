@@ -12,7 +12,6 @@
     <meta name="author" content="">
 
 
-
     <title>@yield('title') Doggoware</title>
 
 
