@@ -14,6 +14,6 @@ Route::resource('registro', 'RegistroController');
 Route::resource('convenio', 'ConvenioController');
 Route::resource('extension', 'ExtensionController');
 Route::resource('aprendizaje', 'AprendizajeController');
-Route::resource('bienvenido', 'HomeController');
+Route::resource('', 'HomeController');
 Route::resource('titulados', 'TituladosController');
 Route::resource('titulacion','TitulacionController');
