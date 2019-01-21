@@ -7,6 +7,20 @@
         {{ csrf_field() }}
         <h3>Registrar Actividad de Aprendizaje + Servicio</h3>
         <br>
+        <div class="row">
+            <div class="col">
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+        </div>
+
         <div class="form-group row">
             <label for="asignatura" class="col-sm-5 col-form-label">Nombre de la asignatura</label>
             <div class="col-sm-7">

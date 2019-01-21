@@ -7,7 +7,19 @@
 
     <form method="POST" enctype="multipart/form-data" action="{{ url('convenio') }}">
         {{ csrf_field() }}
-
+        <div class="row">
+            <div class="col">
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+        </div>
         <div class="form-group row">
             <label for="nombre_empresa" class="col-sm-5 col-form-label">Nombre de la emopresa</label>
             <div class="col-sm-7">
