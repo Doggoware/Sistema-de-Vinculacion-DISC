@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Titulados;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class TituladosController extends Controller
 {
@@ -130,5 +131,28 @@ class TituladosController extends Controller
     {
         Titulados::find($id)->delete();
         return redirect()->route('titulados.index')->with('success','Registro eliminado satisfactoriamente');
+    }
+
+    public function todos(){
+        $titulado = Titulados::all();
+        return view('titulados.todos',compact('titulado'));
+    }
+
+    public function carrera($carrera){
+        $titulado = Titulados::where('carrera',$carrera);
+        return view('titulados.carrera',compact('titulado'));
+    }
+
+    public function pdf(Request $request)
+    {
+        /**
+         * toma en cuenta que para ver los mismos
+         * datos debemos hacer la misma consulta
+         **/
+        $titulados = titulados::all();
+
+        $pdf = PDF::loadView('pdf.titulados', compact('titulados'));
+
+        return $pdf->download('listado.pdf');
     }
 }

@@ -16,3 +16,15 @@ Route::resource('extension', 'ExtensionController');
 Route::resource('aprendizaje', 'AprendizajeController');
 Route::resource('bienvenido', 'HomeController');
 Route::resource('titulados', 'TituladosController');
+Route::resource('consultas', 'ConsultaController');
+Route::get('todas', function()
+{
+    return view('/consultas/todas');
+});
+Route::get('descargar', 'TituladosController@pdf')->name('titulados.pdf');
+Route::get('todos', [
+    'uses' => 'TituladosController@todos'
+]);
+Route::get('carrera', [
+    'uses' => 'TituladosController@carrera'
+]);
