@@ -1,6 +1,5 @@
-@extends('layouts.master')
 
-@section('title', "Editar Titulado")
+@extends('layouts.master')
 
 @section('content')
     <h1 class="page-header">Editar Titulado</h1>

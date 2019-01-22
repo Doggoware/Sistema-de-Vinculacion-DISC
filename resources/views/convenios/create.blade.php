@@ -7,7 +7,19 @@
 
     <form method="POST" enctype="multipart/form-data" action="{{ url('convenio') }}">
         {{ csrf_field() }}
-
+        <div class="row">
+            <div class="col">
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+        </div>
         <div class="form-group row">
             <label for="nombre_empresa" class="col-sm-5 col-form-label">Nombre de la emopresa</label>
             <div class="col-sm-7">
@@ -51,10 +63,9 @@
             </div>
         </div>
 
-        <div class="container text-center">
-            <button type="submit" class="text-center">Registrar Convenio</button>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <input type="submit"  value="Registrar" class="btn btn-success btn-block">
+            <a href="{{ route('convenio.index') }}" class="btn btn-info btn-block" >Atrás</a>
         </div>
-
-
     </form>
 @endsection

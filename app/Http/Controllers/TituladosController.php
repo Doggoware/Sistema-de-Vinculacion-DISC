@@ -13,7 +13,7 @@ class TituladosController extends Controller
      */
     public function index()
     {
-        $titulados = Titulados::all();
+        $titulados=Titulados::orderBy('id','DESC')->paginate(3);
         return view('titulados.index',compact('titulados'));
     }
     /**
@@ -96,9 +96,10 @@ class TituladosController extends Controller
      * @param  \App\Titulados  $titulados
      * @return \Illuminate\Http\Response
      */
-    public function edit(Titulados $titulados)
+    public function edit($id)
     {
-        return view('titulados.edit', ['titulados'=>$titulados]);
+        $titulado=titulados::find($id);
+        return view('titulados.edit',compact('titulado'));
     }
     /**
      * Update the specified resource in storage.
@@ -107,9 +108,32 @@ class TituladosController extends Controller
      * @param  \App\Titulados  $titulados
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Titulados $titulados)
+    public function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'nombre_titulado' => ['required','regex:/^[A-Za-z]+([\ A-Za-z]+)*/'],
+            'rut_titulado' => 'required|regex: /^(\d{1,3}(?:\.\d{1,3}){2}-[\dkK])$/',
+            'telefono_titulado' =>'nullable|integer|digits_between:8,9',
+            'correo_titulado'=>'nullable|email',
+            'empresa_trabaja'=>'nullable',
+            'anio_titulacion'=>'required|integer|min:1900|digits:4',
+            'carrera'=>'required',
+        ],[
+            'nombre_titulado.required'=>'El campo nombre es obligatorio',
+            'nombre_titulado.regex'=>'El nombre tiene que ser solo letras',
+            'rut_titulado.required' => 'El campo RUT es obligatorio',
+            'rut_titulado.regex' => 'El RUT sigue este formato 11.111.111-1',
+            'telefono_titulado.integer' => 'El teléfono debe ser un número entero de entre ocho y nueve digitos',
+            'telefono_titulado.digits_between' => 'El teléfono debe ser un número entero de entre ocho y nueve digitos',
+            'correo_titulado' => 'El correo del titulado debe ser valido',
+            'anio_titulacion.required'=>'El campo año de titulacion es obligatorio',
+            'anio_titulacion.integer' => 'El año de titulación debe ser un entero positivo',
+            'anio_titulacion.min' => 'El año de titulación debe ser mayor a 1900',
+            'anio_titulacion.digits' => 'El año de titulación debe contener cuatro digitos',
+            'carrera.required'=>'El campo carrera es obligatorio',
+        ]);
+        titulados::find($id)->update($request->all());
+        return redirect()->route('titulados.index')->with('success','Registro actualizado satisfactoriamente');
     }
     /**
      * Remove the specified resource from storage.
@@ -117,8 +141,10 @@ class TituladosController extends Controller
      * @param  \App\Titulados  $titulados
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Titulados $titulados)
+    public function destroy($id)
     {
-        //
+        Titulados::find($id)->delete();
+        DB::table('actualizars')->where('id',1)->decrement('titulados');
+        return redirect()->route('titulados.index')->with('success','Registro eliminado satisfactoriamente');
     }
 }
