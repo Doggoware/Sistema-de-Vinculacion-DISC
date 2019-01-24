@@ -6,13 +6,16 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <div class="pull-left"><h3>Consultas sobre actividades de titulación</h3></div>
+                        <div class="pull-left"><h3>Consultas sobre actividades</h3></div>
+                    </div>
+                    <div>
+                        <a href='{{action('ConsultaController@todas')}}'>Revisar todas las actividades</a>
                     </div>
                     <div>
                         <a href='{{action('TituladosController@todos')}}'>Revisar todos los titulados</a>
                     </div>
                     <?php
-                    $carrera = '';
+                        $carrera = '';
                     ?>
                     <form method="GET" action="{{action('TituladosController@carrera',$carrera)}}"  role="form">
                         {{ csrf_field() }}
@@ -24,13 +27,11 @@
                             ?>
 
                             <input type="submit" value="Revisar" class="btn btn-success btn-sm">
+                        </div>
                     </form>
                     </div>
                 </div>
-            </div>
-
-        </section>
+        </form>
     </div>
-
 
 @endsection

@@ -7,7 +7,9 @@ use App\aprendizaje;
 use App\Convenio;
 use App\extension;
 use App\Titulados;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ConsultaController extends Controller
 {
@@ -22,16 +24,22 @@ class ConsultaController extends Controller
         return view('consultas.index');
     }
 
-    public function todTitu(){
-        $titulados = Titulados::all();
-        return view('titulados.todos',compact('titulados'));
+    public function todas(){
+        $aprendizajes = DB::table('aprendizajes')->get();
+        $convenio = DB::table('convenios')->get();
+        $extension = DB::table('extensions')->get();
+        return view('consultas.todas',compact('aprendizajes','convenio','extension'));
     }
 
-    public function todas(){
-        $aprendizaje = App\aprendizaje::find(1);
-        $convenio = App\Convenio::find(1);
-        $extension = App\extension::find(1);
-        return view('consultas.todas',compact('aprendizaje','convenio','extension'));
+    public function pdf(Request $request)
+    {
+        $aprendizajes = DB::table('aprendizajes')->get();
+        $convenio = DB::table('convenios')->get();
+        $extension = DB::table('extensions')->get();
+
+        $pdf = PDF::loadView('pdf.actividades', compact('aprendizajes','convenio','extension'));
+
+        return $pdf->download('listadoActividades.pdf');
     }
 
     public function show()

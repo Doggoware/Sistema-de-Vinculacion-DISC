@@ -9,7 +9,7 @@
                         <div class="pull-left"><h3>Lista Titulados</h3></div>
                         <div class="pull-right">
                             <a href="{{action('TituladosController@pdf')}}" class="btn btn-sm btn-primary">
-                                Descargar archivo titulados.pdf
+                                Descargar archivo listadoTitulados.pdf
                             </a>
                         </div>
                         <div class="table-container">

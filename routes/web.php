@@ -21,10 +21,14 @@ Route::get('todas', function()
 {
     return view('/consultas/todas');
 });
-Route::get('descargar', 'TituladosController@pdf')->name('titulados.pdf');
+Route::get('descargarTodTitu', 'TituladosController@pdf')->name('titulados.pdf');
+Route::get('descargarTodActiv', 'ConsultaController@pdf')->name('actividades.pdf');
 Route::get('todos', [
     'uses' => 'TituladosController@todos'
 ]);
 Route::get('carrera', [
     'uses' => 'TituladosController@carrera'
+]);
+Route::get('todas', [
+    'uses' => 'ConsultaController@todas'
 ]);

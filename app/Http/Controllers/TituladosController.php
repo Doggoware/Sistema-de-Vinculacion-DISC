@@ -139,20 +139,16 @@ class TituladosController extends Controller
     }
 
     public function carrera($carrera){
-        $titulado = Titulados::where('carrera',$carrera);
+        $titulado = Titulados::all();
         return view('titulados.carrera',compact('titulado'));
     }
 
     public function pdf(Request $request)
     {
-        /**
-         * toma en cuenta que para ver los mismos
-         * datos debemos hacer la misma consulta
-         **/
         $titulados = titulados::all();
 
         $pdf = PDF::loadView('pdf.titulados', compact('titulados'));
 
-        return $pdf->download('listado.pdf');
+        return $pdf->download('listadoTitulados.pdf');
     }
 }
