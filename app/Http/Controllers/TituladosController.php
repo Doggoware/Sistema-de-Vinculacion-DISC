@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Titulados;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\DB;
 
 class TituladosController extends Controller
 {
@@ -15,8 +16,13 @@ class TituladosController extends Controller
      */
     public function index()
     {
+        $titulados = new Titulados;
 
-        $titulados=Titulados::orderBy('id','DESC')->paginate(3);
+        if(request()->has('carrera')){
+            $titulados = $titulados->where('carrera',request('carrera'));
+        }
+
+        $titulados = $titulados->paginate(10)->appends('carrera',request('carrera'));
         return view('titulados.index',compact('titulados'));
     }
 

@@ -26,6 +26,9 @@ Route::get('descargarTodActiv', 'ConsultaController@pdf')->name('actividades.pdf
 Route::get('todos', [
     'uses' => 'TituladosController@todos'
 ]);
+
+Route::get('/','TituladosController@index')->name('titulados.index');
+
 Route::get('carrera', [
     'uses' => 'TituladosController@carrera'
 ]);
