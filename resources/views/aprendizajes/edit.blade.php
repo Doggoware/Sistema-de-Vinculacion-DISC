@@ -27,45 +27,73 @@
                     <div class="panel-body">
                         <div class="table-container">
 
-                            <form method="POST" action="{{ route('aprendizajes.update',$aprendizaje->id) }}"  role="form">
+                            <form method="POST" action="{{ route('aprendizaje.update',$aprendizaje->id) }}"  role="form">
                                 {{ csrf_field() }}
 
                                 <input name="_method" type="hidden" value="PATCH">
                                 <br>
+                                *
                                 <label for="asignatura">Nombre de la asignatura:</label>
-                                <input type="text" name="asignatura" id="asignatura" value="{{$aprendizaje->asignatura}}">
-
-                                <br>
-                                <label for="nombre">Nombre del profesor:</label>
-                                <input type="text" name="nombre" id="nombre" value="{{$aprendizaje->nombre}}">
-
-                                <br>
+                                <select name="asignatura">
+                                    <option value="{{$aprendizaje->asignatura}}">{{$aprendizaje->asignatura}}</option>
+                                    @foreach($asig as $asi => $value)
+                                        @if($aprendizaje->asignatura != $value)
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <div class="form-group">
+                                    <table class="table table-bordered" id="dynamic_field">
+                                        <tr>
+                                            <label for="nombre"><th>*Nombre del profesor:</th></label>
+                                        </tr>
+                                        @foreach($aprendizaje->nombre as $apre)
+                                            <tr>
+                                                <td>
+                                                    <select name="nombre[]">
+                                                        <option value{{$apre}}>{{$apre}}</option>
+                                                        @foreach($items as $item => $value)
+                                                            @if($apre != $value)
+                                                                <option value="{{$value}}">{{$value}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                </div>
+                                *
                                 <label for="cantidad">Cantidad Estudiantes:</label>
                                 <input type="text" name="cantidad" id="cantidad" value="{{$aprendizaje->cantidad}}">
-
                                 <br>
-                                <label for="socio">Nombre del Socio Comunitario:</label>
-                                <input type="text" name="socio" id="socio" value="{{$aprendizaje->socio}}">
-
-                                <br>
+                                *
                                 <label for="año">Año:</label>
                                 <input type="text" name="año" id="año" value="{{$aprendizaje->año}}">
 
                                 <br>
+                                *
                                 <label for="semestre">Semestre:</label>
                                 <input type="text" name="semestre", id="semestre" value="{{$aprendizaje->semestre}}">
-
                                 <br>
-                                <label for="evidencia">Listado de participantes:*</label>
-                                <input type="file" name="evidencia" id="evidencia" accept=".pdf, .png, .jpg, .jpeg" value="{{$aprendizaje->evidencia}}">
-
+                                <div class="form-group">
+                                    <table class="table table-bordered" id="dynamic_field">
+                                        <tr>
+                                            <label for="socio"><th>*Nombre del Socio Comunitario:</th></label>
+                                        </tr>
+                                        @foreach($aprendizaje->socio as $apr)
+                                            <tr>
+                                                <td><input type="text" name="socio[]" id="socio" value="{{$apr}}"></td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <input type="submit"  value="Actualizar" class="btn btn-success btn-block">
-                                    <a href="{{ route('aprendizajes.index') }}" class="btn btn-info btn-block" >Atrás</a>
+                                    <input type="submit"  value="Actualizar" class="btn btn-success btn-block" style="height:40px; width:100px">
+                                    <a href="{{ route('aprendizaje.index') }}" class="btn btn-info btn-block" style="height:40px; width:100px">Atrás</a>
                                 </div>
 
                             </form>
-
 
                         </div>
                     </div>

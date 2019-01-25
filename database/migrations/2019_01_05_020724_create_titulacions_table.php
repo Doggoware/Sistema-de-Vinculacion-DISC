@@ -16,6 +16,16 @@ class CreateTitulacionsTable extends Migration
         Schema::create('titulacions', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->string('titulo');
+            $table->string('nombre_estudiante');
+            $table->string('rut');
+            $table->string('carrera');
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin');
+            $table->string('prof_guia');
+            $table->string('empresa');
+            $table->string('evidencia');
+
         });
     }
 

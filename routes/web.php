@@ -16,6 +16,8 @@ Route::resource('extension', 'ExtensionController');
 Route::resource('aprendizaje', 'AprendizajeController');
 Route::resource('bienvenido', 'HomeController');
 Route::resource('titulados', 'TituladosController');
+Route::resource('titulacion','TitulacionController');
+Route::resource('indicadores','IndicadoresController');
 Route::resource('consultas', 'ConsultaController');
 Route::get('todas', function()
 {
@@ -27,7 +29,8 @@ Route::get('todos', [
     'uses' => 'TituladosController@todos'
 ]);
 
-Route::get('/','TituladosController@index')->name('titulados.index');
+Route::get('/todos','TituladosController@todos')->name('titulados.todos');
+Route::get('/todas','ConsultasController@todas')->name('consultass.todas');
 
 Route::get('carrera', [
     'uses' => 'TituladosController@carrera'

@@ -12,11 +12,6 @@
                                 <a href="{{ route('titulados.create') }}" class="btn btn-info" >Añadir Titulado</a>
                             </div>
                         </div>
-                        Filtro: Carrera:
-                        <a href="/?carrera=ICCI">ICCI</a>
-                        <a href="/?carrera=PedagogiaenLenguaje">PedagogiaenLenguaje</a>
-                        <a href="/">Borrar</a>
-
                         <div class="table-container">
                             <table id="mytable" class="table table-bordred table-striped">
                                 <thead>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Carreras extends Migration
+class CreateIndicadoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,16 @@ class Carreras extends Migration
      */
     public function up()
     {
-        Schema::create('carreras', function (Blueprint $table) {
+        Schema::create('indicadores', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre_ca');
             $table->timestamps();
+            $table->string('nombre');
+            $table->string('descripcion');
+            $table->string('formula');
+            $table->string('evidencia');
+            $table->string('fecha');
+            $table->string('objetivo');
+            $table->integer('actual');
         });
     }
 
@@ -27,6 +33,6 @@ class Carreras extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('indicadores');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\extension;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ExtensionController extends Controller
 {
@@ -14,9 +15,54 @@ class ExtensionController extends Controller
      */
     public function index()
     {
-       /* $extension = extension::all();
-        return view('extension.index', compact('extension'));*/
-        $extension=extension::orderBy('id','DESC')->paginate(3);
+        if(DB::table('indicadores')->where('id', 1)->doesntExist()){
+            DB::table('indicadores')->insert([
+                'nombre' => "Convenios",
+                'descripcion' => "Convenios de colaboracion",
+                'formula' => "+1 por cada empresa en colaboracion",
+                'evidencia' => "Cada convenio firmado",
+                'fecha' => '2019',
+                'objetivo' => '10',
+                'actual' => 0
+            ]);
+            DB::table('indicadores')->insert([
+                'nombre' => "Extension",
+                'descripcion' => "Actividades de extension",
+                'formula' => "+1 por cada actividad",
+                'evidencia' => "Fotos del evento o asistencia",
+                'fecha' => '2019',
+                'objetivo' => '12',
+                'actual' => 0
+            ]);
+            DB::table('indicadores')->insert([
+                'nombre' => "Actividad A+S",
+                'descripcion' => "Actividades de aprendizaje A+S",
+                'formula' => "+1 por cada actividad",
+                'evidencia' => "Acuerdo firmado entre profesor y socio",
+                'fecha' => '2019',
+                'objetivo' => '8',
+                'actual' => 0
+            ]);
+            DB::table('indicadores')->insert([
+                'nombre' => "Titulacion",
+                'descripcion' => "Actividades de titulacion po convenio",
+                'formula' => "+1 por cada actividad",
+                'evidencia' => "Formulario inscripcion actividad",
+                'fecha' => '2019',
+                'objetivo' => '5',
+                'actual' => 0
+            ]);
+            DB::table('indicadores')->insert([
+                'nombre' => "Titulados",
+                'descripcion' => "Ex alumnos del DISC ya titulados",
+                'formula' => "+1 por cada alumno titulado",
+                'evidencia' => "Ninguna",
+                'fecha' => '2019',
+                'objetivo' => '10',
+                'actual' => 0
+            ]);
+        }
+        $extension=extension::orderBy('id','DESC')->paginate(6);
         return view('extension.index',compact('extension'));
     }
 
@@ -38,43 +84,51 @@ class ExtensionController extends Controller
      */
     public function store(Request $request)
     {
-        $extension =  request()->validate([
+        request()->validate([
             'titulo' => 'required',
-            'nombre' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
-            'lugar' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
+            'nombre' => 'required|array',
+            'nombre.*' => ['required','regex:/^[\pL\s\-]+$/u'],
+            'lugar' => ['required','regex:/^[\pL\s\-]+$/u'],
             'fecha' => 'required|before:today',
             'cantidad' => 'required|integer|min:0',
-            'organizador' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
+            'organizador' => 'required|array',
+            'organizador.*' => ['required','regex:/^[\pL\s\-]+$/u'],
             'tipo_convenio' => '',
             'evidencia' => 'required',
         ], [
             'titulo.required' => 'El campo título de actividad es obligatorio',
             'nombre.required' => 'El campo nombre del expositor es obligatorio',
+            'nombre.regex' => 'El nombre solo puede contener letras, es un nombre',
             'lugar.required' => 'El campo lugar es obligatorio',
             'fecha.required' => 'El campo fecha es obligatorio',
+            'fecha.before' => 'La fecha tiene que ser antes del día de hoy',
             'cantidad.required' => 'El campo cantidad de estudiantes es obligatario',
+            'cantidad.integer' => 'La cantidad de asistentes tiene que ser un número entero positivo',
+            'cantidad.min' => 'La cantidad de asiste tiene que ser un número entero positivo',
             'organizador.required' => 'El campo organizador es obligatorio',
+            'organizador.regex' => 'El nombre solo puede contener letras, es un nombre',
             'evidencia.required' => 'Debe subir evidencia de la actividad'
         ]);
-
-        $photos = $request->file('evidencia');
-        $paths  = [];
-        foreach ($photos as $photo) {
-            $ext = $photo->getClientOriginalExtension();
-            $filename  = 'profile-photo-' . time() . '.' . $ext;
-            $paths[]   = $photo->storeAs('photos', $filename);
+        $paths = [];
+        foreach ($request->file('evidencia') as $photos) {
+            $ext = $photos->getClientOriginalExtension();
+            $filename  = 'evidencia-foto-' . time() . '.' . $ext;
+            $nombres[] = $filename;
+            $paths[]   = $photos->storeAs('photos', $filename);
         }
-        $ext = extension::create([
-            'titulo' => $extension['titulo'],
-            'nombre' => $extension['nombre'],
-            'fecha' => $extension['fecha'],
-            'lugar' => $extension['lugar'],
-            'cantidad' => $extension['cantidad'],
-            'organizador' => $extension['organizador'],
-            'tipo_convenio' => $extension['tipo_convenio'],
-            'evidencia' => $extension['evidencia']
-        ]);
-        return redirect()->route('extension.index');
+        DB::table('extensions')->insert(
+            [
+                'titulo' => $request->input('titulo'),
+                'nombre' => implode(",", $request->input('nombre')),
+                'fecha' => $request->input('fecha'),
+                'lugar' => $request->input('lugar'),
+                'cantidad' => $request->input('cantidad'),
+                'organizador' => implode(",", $request->input('organizador')),
+                'tipo_convenio' => $request->input('tipo_convenio'),
+                'evidencia' => implode(",", $nombres),
+            ]);
+        DB::table('indicadores')->where('nombre','Extension')->increment('actual');
+        return redirect()->route('extension.index')->with('success','¡Datos agregados con éxito!');
     }
 
     /**
@@ -96,7 +150,9 @@ class ExtensionController extends Controller
      */
     public function edit($id)
     {
-        $extension=extensiones::find($id);
+        $extension=extension::find($id);
+        $extension['nombre'] = explode(",", $extension['nombre']);
+        $extension['organizador'] = explode(",", $extension['organizador']);
         return view('extension.edit',compact('extension'));
     }
 
@@ -109,26 +165,34 @@ class ExtensionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $extension =  request()->validate([
+        request()->validate([
             'titulo' => 'required',
-            'nombre' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
-            'lugar' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
+            'nombre' => 'required|array',
+            'nombre.*' => ['required','regex:/^[\pL\s\-]+$/u'],
+            'lugar' => ['required','regex:/^[\pL\s\-]+$/u'],
             'fecha' => 'required|before:today',
             'cantidad' => 'required|integer|min:0',
-            'organizador' => ['required','regex:/(^([a-z|A-Z]+)$)/'],
+            'organizador' => 'required|array',
+            'organizador.*' => ['required','regex:/^[\pL\s\-]+$/u'],
             'tipo_convenio' => '',
-            'evidencia' => 'required',
         ], [
             'titulo.required' => 'El campo título de actividad es obligatorio',
             'nombre.required' => 'El campo nombre del expositor es obligatorio',
+            'nombre.regex' => 'El nombre solo puede contener letras, es un nombre',
             'lugar.required' => 'El campo lugar es obligatorio',
             'fecha.required' => 'El campo fecha es obligatorio',
+            'fecha.before' => 'La fecha tiene que ser antes del día de hoy',
             'cantidad.required' => 'El campo cantidad de estudiantes es obligatario',
+            'cantidad.integer' => 'La cantidad de asistentes tiene que ser un número entero positivo',
+            'cantidad.min' => 'La cantidad de asiste tiene que ser un número entero positivo',
             'organizador.required' => 'El campo organizador es obligatorio',
-            'evidencia.required' => 'Debe subir evidencia de la actividad'
+            'organizador.regex' => 'El nombre solo puede contener letras, es un nombre'
         ]);
 
-        extension::find($id)->update($request->all());
+        $extension = extension::find($id);
+        $request['nombre'] = implode(",", $request->input('nombre'));
+        $request['organizador'] = implode(",", $request->input('organizador'));
+        $extension->update($request->all());
         return redirect()->route('extension.index')->with('success','Registro actualizado satisfactoriamente');
     }
 
@@ -138,9 +202,9 @@ class ExtensionController extends Controller
      * @param  \App\extension  $extension
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         Extension::find($id)->delete();
-        return redirect()->route('extencion.index')->with('success','Registro eliminado satisfactoriamente');
+        DB::table('indicadores')->where('nombre','Extension')->decrement('actual');
+        return redirect()->route('extension.index')->with('success','Registro eliminado satisfactoriamente');
     }
 }

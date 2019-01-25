@@ -28,7 +28,8 @@ class ConsultaController extends Controller
         $aprendizajes = DB::table('aprendizajes')->get();
         $convenio = DB::table('convenios')->get();
         $extension = DB::table('extensions')->get();
-        return view('consultas.todas',compact('aprendizajes','convenio','extension'));
+        $titulacion = DB::table('titulacions')->get();
+        return view('consultas.todas',compact('aprendizajes','convenio','extension','titulacion'));
     }
 
     public function pdf(Request $request)
@@ -36,8 +37,8 @@ class ConsultaController extends Controller
         $aprendizajes = DB::table('aprendizajes')->get();
         $convenio = DB::table('convenios')->get();
         $extension = DB::table('extensions')->get();
-
-        $pdf = PDF::loadView('pdf.actividades', compact('aprendizajes','convenio','extension'));
+        $titulacion = DB::table('titulacions')->get();
+        $pdf = PDF::loadView('pdf.actividades', compact('aprendizajes','convenio','extension','titulacion'));
 
         return $pdf->download('listadoActividades.pdf');
     }

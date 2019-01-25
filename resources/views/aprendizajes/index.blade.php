@@ -54,7 +54,7 @@
                             </table>
                         </div>
                     </div>
-                    {{ $aprendizaje->links() }}
+
                 </div>
             </div>
 

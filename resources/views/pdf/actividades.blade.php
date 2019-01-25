@@ -1,8 +1,8 @@
 @extends('layout')
 
 @section('content')
-    <div class="pull-left"><h3>Actividades de extension</h3></div>
-        <table id="mytable" class="table table-bordred table-striped">
+    <div class="pull-left"><h3>Actividades de extension</h3></div><br/><br/>
+        <table id="mytable" class="table table-bordered table-striped">
             <thead>
             <tr>
                 <th>Nombre de la actividad</th>
@@ -25,7 +25,7 @@
                         <td>{{$extension->lugar}}</td>
                         <td>{{$extension->cantidad}}</td>
                         <td>{{$extension->organizador}}</td>
-                        <td>{{$extension->convenio}}</td>
+                        <td>{{$extension->tipo_convenio}}</td>
                         <td>{{$extension->evidencia}}</td>
                         <
                     </tr>
@@ -37,10 +37,11 @@
             @endif
             </tbody>
         </table>
-        </div>
-        <div class="pull-left"><h3>actividades de aprendizaje</h3></div>
+
+
+        <div class="pull-left"><h3>Actividades de aprendizaje</h3></div><br/><br/>
         <div class="table-container">
-            <table id="tablaApren" class="table table-bordred table-striped">
+            <table id="tablaApren" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                 <th>Nombre de la asignatura</th>
@@ -73,9 +74,11 @@
                 </tbody>
             </table>
         </div>
-        <div class="pull-left"><h3>Convenios de Colaboración</h3></div>
+
+
+        <div class="pull-left"><h3>Convenios de Colaboración</h3></div><br/><br/>
         <div class="table-container">
-            <table id="tablaConv" class="table table-bordred table-striped">
+            <table id="tablaConv" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                 <th>Nombre Empresa</th>
@@ -102,4 +105,44 @@
                 @endif
                 </tbody>
             </table>
+        </div>
+
+    <div class="pull-left"><h3>Actividades de titulacion</h3></div><br/><br/>
+    <div class="table-container">
+        <table id="mytable" class="table table-bordered table-striped">
+            <thead>
+            <th>Titulo Actividad</th>
+            <th>Nombre de estudiante</th>
+            <th>Rut del estudiante</th>
+            <th>Carrera del estudiante</th>
+            <th>Fecha de inicio</th>
+            <th>Fecha de termino</th>
+            <th>Profesor guía</th>
+            <th>Empresa</th>
+            <th>Evidencia</th>
+            </thead>
+            <tbody>
+            @if($titulacion->count())
+                @foreach($titulacion as $titu)
+                    <tr>
+                        <td>{{$titu->titulo_actividad}}</td>
+                        <td>{{$titu->nombre_estudiante}}</td>
+                        <td>{{$titu->rut}}</td>
+                        <td>{{$titu->carrera}}</td>
+                        <td>{{$titu->fecha_inicio}}</td>
+                        <td>{{$titu->fecha_fin}}</td>
+                        <td>{{$titu->prof_guia}}</td>
+                        <td>{{$titu->empresa}}</td>
+                        <td>{{$titu->evidencia}}</td>
+
+                    </tr>
+                @endforeach
+            @else
+                <tr>
+                    <td colspan="8">No hay registro !!</td>
+                </tr>
+            @endif
+            </tbody>
+        </table>
+    </div>
 @endsection

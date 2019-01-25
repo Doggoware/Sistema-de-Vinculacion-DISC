@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Convenio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ConvenioController extends Controller
 {
@@ -14,9 +15,54 @@ class ConvenioController extends Controller
      */
     public function index()
     {
-        /*$convenios = Convenio::all();
-        return view('convenios.index', compact('convenios'));*/
-        $convenios=Convenio::orderBy('id','DESC')->paginate(3);
+        if(DB::table('indicadores')->where('id', 1)->doesntExist()){
+            DB::table('indicadores')->insert([
+                'nombre' => "Convenios",
+                'descripcion' => "Convenios de colaboracion",
+                'formula' => "+1 por cada empresa en colaboracion",
+                'evidencia' => "Cada convenio firmado",
+                'fecha' => '2019',
+                'objetivo' => '10',
+                'actual' => 0
+            ]);
+            DB::table('indicadores')->insert([
+                'nombre' => "Extension",
+                'descripcion' => "Actividades de extension",
+                'formula' => "+1 por cada actividad",
+                'evidencia' => "Fotos del evento o asistencia",
+                'fecha' => '2019',
+                'objetivo' => '12',
+                'actual' => 0
+            ]);
+            DB::table('indicadores')->insert([
+                'nombre' => "Actividad A+S",
+                'descripcion' => "Actividades de aprendizaje A+S",
+                'formula' => "+1 por cada actividad",
+                'evidencia' => "Acuerdo firmado entre profesor y socio",
+                'fecha' => '2019',
+                'objetivo' => '8',
+                'actual' => 0
+            ]);
+            DB::table('indicadores')->insert([
+                'nombre' => "Titulacion",
+                'descripcion' => "Actividades de titulacion po convenio",
+                'formula' => "+1 por cada actividad",
+                'evidencia' => "Formulario inscripcion actividad",
+                'fecha' => '2019',
+                'objetivo' => '5',
+                'actual' => 0
+            ]);
+            DB::table('indicadores')->insert([
+                'nombre' => "Titulados",
+                'descripcion' => "Ex alumnos del DISC ya titulados",
+                'formula' => "+1 por cada alumno titulado",
+                'evidencia' => "Ninguna",
+                'fecha' => '2019',
+                'objetivo' => '10',
+                'actual' => 0
+            ]);
+        }
+        $convenios=Convenio::orderBy('id','DESC')->paginate(6);
         return view('convenios.index',compact('convenios'));
     }
 
@@ -38,37 +84,43 @@ class ConvenioController extends Controller
      */
     public function store(Request $request)
     {
-        $convenios = request()->validate([
+        request()->validate([
             'nombre_empresa' => 'required',
-            'tipo_convenio' => 'required',
+            'tipo_convenio' => 'required|array',
+            'tipo_convenio.*' => 'required|distinct',
             'fecha_inicio' => 'required|before:today',
             'fecha_termino' => 'required|after_or_equal:fecha_inicio',
-            'evidencia' => 'required',
+            'evidencia' => 'required|array',
+            'evidencia.*' => 'required',
         ], [
             'nombre_empresa.required' => 'El campo nombre es obligatorio',
             'tipo_convenio.required' => 'El campo convenio es obligatorio',
+            'tipo_convenio.distinct' => 'Asegurese de que ha seleccionado convenios diferentes',
             'fecha_inicio.required' => 'El campo fecha de inicio es obligatorio',
-            'fecha_termino.required' => 'El campo fecha de termino es obligatorio',
+            'fecha_inicio.before' => 'La fecha de inicio tiene que ser antes del día de hoy',
+            'fecha_termino.after_or_equal' => 'La fecha de termino tiene que ser después de la fecha de inicio establecida',
             'evidencia.required' => 'Debe subir un archivo .pdf',
         ]);
 
         // cache the file
-        $file = $request->file('evidencia');
-        // generate a new filename. getClientOriginalExtension() for the file extension
-        $filename = 'evidencia-' . time() . '.' . $file->getClientOriginalExtension();
-        // save to storage/app/photos as the new $filename
-        $path = $file->storeAs('photos', $filename);
+        $paths = [];
+        foreach ($request->file('evidencia') as $photos) {
+            $ext = $photos->getClientOriginalExtension();
+            $filename = 'evidencia-foto-' . time() . '.' . $ext;
+            $nombres[] = $filename;
+            $paths[] = $photos->storeAs('photos', $filename);
+        }
+        DB::table('convenios')->insert(
+            [
+                'nombre_empresa' => $request->input('nombre_empresa'),
+                'tipo_convenio' => implode(",", $request->input('tipo_convenio')),
+                'fecha_inicio' => $request->input('fecha_inicio'),
+                'fecha_termino' => $request->input('fecha_termino'),
+                'evidencia' => implode(",", $nombres),
+            ]);
+        DB::table('indicadores')->where('nombre', 'Convenios')->increment('actual');
 
-        $ext = Convenio::create([
-            'nombre_empresa' => $convenios['nombre_empresa'],
-            'tipo_convenio' => $convenios['tipo_convenio'],
-            'fecha_inicio' => $convenios['fecha_inicio'],
-            'fecha_termino' => $convenios['fecha_termino'],
-            'evidencia' => $convenios['evidencia']
-        ]);
-
-        $ext -> save();
-        return redirect()->route('convenio.index');
+        return redirect()->route('convenio.index')->with('success','¡Datos agregados con éxito!');
     }
 
     /**
@@ -91,6 +143,7 @@ class ConvenioController extends Controller
     public function edit($id)
     {
         $convenio=convenio::find($id);
+        $convenio['tipo_convenio'] = explode(",", $convenio['tipo_convenio']);
         return view('convenios.edit',compact('convenio'));
     }
 
@@ -103,22 +156,22 @@ class ConvenioController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        $convenios = request()->validate([
+        request()->validate([
             'nombre_empresa' => 'required',
-            'tipo_convenio' => 'required',
+            'tipo_convenio' => 'required|array',
+            'tipo_convenio.*' => 'required',
             'fecha_inicio' => 'required|before:today',
             'fecha_termino' => 'required|after_or_equal:fecha_inicio',
-            'evidencia' => 'required',
         ], [
             'nombre_empresa.required' => 'El campo nombre es obligatorio',
             'tipo_convenio.required' => 'El campo convenio es obligatorio',
             'fecha_inicio.required' => 'El campo fecha de inicio es obligatorio',
-            'fecha_termino.required' => 'El campo fecha de termino es obligatorio',
-            'evidencia.required' => 'Debe subir un archivo .pdf',
+            'fecha_inicio.before' => 'La fecha de inicio tiene que ser antes del día de hoy',
+            'fecha_termino.after_or_equal' => 'La fecha de termino tiene que ser después de la fecha de inicio establecida',
         ]);
-
-        convenio::find($id)->update($request->all());
+        $convenio=convenio::find($id);
+        $request['tipo_convenio'] = implode(",", $request->input('tipo_convenio'));
+        $convenio->update($request->all());
         return redirect()->route('convenio.index')->with('success','Registro actualizado satisfactoriamente');
     }
 
@@ -131,6 +184,7 @@ class ConvenioController extends Controller
     public function destroy($id)
     {
         Convenio::find($id)->delete();
+        DB::table('indicadores')->where('nombre','Convenios')->decrement('actual');
         return redirect()->route('convenio.index')->with('success','Registro eliminado satisfactoriamente');
     }
 }
