@@ -18,13 +18,15 @@
                                 Descargar archivo listadoActividades.pdf
                             </a>
                         </div>
-
+                        <a href="{{ route('consultas.index') }}" class="btn btn-info btn-sm pull-right" >Atrás</a>
                         <a href="/todas?aprendizaje=Actividades de aprendizaje">Actividades de aprendizaje</a><br/>
                         <a href="/todas?extension=Actividades de extension">Actividades de extension</a><br/>
                         <a href="/todas?convenio=Actividades de convenio">Actividades de convenio</a><br/>
                         <a href="/todas?titulacion=Actividades de titulacion">Actividades de titulacion</a><br/>
-                        <a href="/todas?all=all">Quitar filtro</a><br/>
+                        <a href="/todas?all=all">Todas</a><br/>
 
+
+                        @if($extension->count())
                         <div class="pull-left"><h3>Actividades de extension</h3></div>
                         <div class="table-container">
                             <table id="mytable" class="table table-bordered table-striped">
@@ -39,7 +41,6 @@
                                 <th>Evidencia</th>
                                 </thead>
                                 <tbody>
-                                @if($extension->count())
                                     @foreach($extension as $extension)
                                         <tr>
                                             <td>{{$extension->titulo}}</td>
@@ -53,16 +54,12 @@
 
                                         </tr>
                                     @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="8">No hay registro !!</td>
-                                    </tr>
-                                @endif
                                 </tbody>
                             </table>
                         </div>
+                        @endif
 
-
+                        @if($aprendizajes->count())
                         <div class="pull-left"><h3>Actividades de aprendizaje</h3></div>
                         <div class="table-container">
                             <table id="tablaApren" class="table table-bordered table-striped">
@@ -96,8 +93,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        @endif
 
-
+                        @if($convenio->count())
                         <div class="pull-left"><h3>Convenios de Colaboración</h3></div>
                         <div class="table-container">
                             <table id="tablaConv" class="table table-bordered table-striped">
@@ -127,7 +125,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        @endif
 
+                        @if($titulacion->count())
                         <div class="pull-left"><h3>Actividades de titulacion</h3></div>
                         <div class="table-container">
                             <table id="mytable" class="table table-bordered table-striped">
@@ -166,10 +166,9 @@
                                 </tbody>
                             </table>
                         </div>
-
+                        @endif
                     </div>
                 </div>
-                <a href="{{ route('consultas.index') }}" class="btn btn-info btn-sm" >Atrás</a>
             </div>
         </section>
     </div>

@@ -1,6 +1,9 @@
 @extends('layout')
 
 @section('content')
+
+
+    @if($extension->count())
     <div class="pull-left"><h3>Actividades de extension</h3></div><br/><br/>
         <table id="mytable" class="table table-bordered table-striped">
             <thead>
@@ -16,7 +19,6 @@
             </tr>
             </thead>
             <tbody>
-            @if($extension->count())
                 @foreach($extension as $extension)
                     <tr>
                         <td>{{$extension->titulo}}</td>
@@ -30,15 +32,11 @@
                         <
                     </tr>
                 @endforeach
-            @else
-                <tr>
-                    <td colspan="8">No hay registro !!</td>
-                </tr>
-            @endif
             </tbody>
         </table>
+        @endif
 
-
+    @if($aprendizajes->count())
         <div class="pull-left"><h3>Actividades de aprendizaje</h3></div><br/><br/>
         <div class="table-container">
             <table id="tablaApren" class="table table-bordered table-striped">
@@ -54,7 +52,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if($aprendizajes->count())
                     @foreach($aprendizajes as $aprendizaje)
                         <tr>
                             <td>{{$aprendizaje->asignatura}}</td>
@@ -66,16 +63,12 @@
                             <td>{{$aprendizaje->evidencia}}</td>
                         </tr>
                     @endforeach
-                @else
-                    <tr>
-                        <td colspan="8">No hay registro !!</td>
-                    </tr>
-                @endif
                 </tbody>
             </table>
         </div>
+@endif
 
-
+    @if($convenio->count())
         <div class="pull-left"><h3>Convenios de Colaboración</h3></div><br/><br/>
         <div class="table-container">
             <table id="tablaConv" class="table table-bordered table-striped">
@@ -88,7 +81,6 @@
                 <th>Evidencia</th>
                 </tr>
                 <tbody>
-                @if($convenio->count())
                     @foreach($convenio as $convenio)
                         <tr>
                             <td>{{$convenio->nombre_empresa}}</td>
@@ -98,15 +90,12 @@
                             <td>{{$convenio->evidencia}}</td>
                         </tr>
                     @endforeach
-                @else
-                    <tr>
-                        <td colspan="8">No hay registro !!</td>
-                    </tr>
-                @endif
                 </tbody>
             </table>
         </div>
+@endif
 
+    @if($titulacion->count())
     <div class="pull-left"><h3>Actividades de titulacion</h3></div><br/><br/>
     <div class="table-container">
         <table id="mytable" class="table table-bordered table-striped">
@@ -122,7 +111,6 @@
             <th>Evidencia</th>
             </thead>
             <tbody>
-            @if($titulacion->count())
                 @foreach($titulacion as $titu)
                     <tr>
                         <td>{{$titu->titulo_actividad}}</td>
@@ -137,12 +125,8 @@
 
                     </tr>
                 @endforeach
-            @else
-                <tr>
-                    <td colspan="8">No hay registro !!</td>
-                </tr>
-            @endif
             </tbody>
         </table>
     </div>
+    @endif
 @endsection

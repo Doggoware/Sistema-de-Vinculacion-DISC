@@ -19,10 +19,7 @@ Route::resource('titulados', 'TituladosController');
 Route::resource('titulacion','TitulacionController');
 Route::resource('indicadores','IndicadoresController');
 Route::resource('consultas', 'ConsultaController');
-Route::get('todas', function()
-{
-    return view('/consultas/todas');
-});
+
 Route::get('descargarTodTitu', 'TituladosController@pdf')->name('titulados.pdf');
 Route::get('descargarTodActiv', 'ConsultaController@pdf')->name('actividades.pdf');
 Route::get('todos', [
@@ -30,11 +27,8 @@ Route::get('todos', [
 ]);
 
 Route::get('/todos','TituladosController@todos')->name('titulados.todos');
-Route::get('/todas','ConsultasController@todas')->name('consultass.todas');
+Route::get('/todas','ConsultasController@todas')->name('consultas.todas');
 
-Route::get('carrera', [
-    'uses' => 'TituladosController@carrera'
-]);
 Route::get('todas', [
     'uses' => 'ConsultaController@todas'
 ]);
